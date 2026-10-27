@@ -9,19 +9,23 @@ Deployed to GitHub Pages at https://jussimattila-monad.github.io/mastermind/.
 npm start           # dev server on http://localhost:9000
 npm run lint        # ESLint (src/**/*.ts) + Stylelint (src/**/*.css)
 npm run typecheck   # tsc, strict, no emit
+npm test            # Vitest unit tests (src/**/*.test.ts)
 npm run build       # production build into dist/
 ```
 
-A change is done only when `npm run lint && npm run typecheck && npm run build` passes.
-CI runs the same three steps before deploying, so a failure blocks the deploy.
+A change is done only when `npm run lint && npm run typecheck && npm test && npm run build` passes.
+CI runs the same steps before deploying, so a failure blocks the deploy.
 
 ## Structure
 
 - `src/main.ts`: bootstraps Aurelia with the root component `MyApp`.
 - `src/my-app.ts` + `src/my-app.html`: root component.
 - `src/resource.d.ts`: module declarations for `.html` and `.css` imports.
+- `src/game/`: game rules, no Aurelia imports; components import from `src/game/index.ts`.
+  State is immutable: `newGame()` (setup) → `startGame()` (playing) → `makeGuess()` (won/lost).
+  `Color` is a union of the supported colors in `ALL_COLORS`; `GameConfig.colors` picks the palette.
 - `vite.config.ts`: `base` is `/mastermind/` for builds (GitHub Pages) and `/` in dev.
-- `.github/workflows/deploy.yml`: lint, typecheck, build, deploy to Pages on push to `main`.
+- `.github/workflows/deploy.yml`: lint, typecheck, test, build, deploy to Pages on push to `main`.
 
 ## Aurelia conventions
 
