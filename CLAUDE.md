@@ -27,8 +27,13 @@ Keep scripts free of hooks that repeat these steps (e.g. a `pretest` that lints)
 - `src/game/`: game rules, no Aurelia imports; components import from `src/game/index.ts`.
   State is immutable: `newGame()` (setup) → `startGame()` (playing) → `makeGuess()` (won/lost).
   `Color` is a union of the supported colors in `ALL_COLORS`; `GameConfig.colors` picks the palette.
-- `vite.config.ts`: `base` is `/mastermind/` for builds (GitHub Pages) and `/` in dev.
-- `.github/workflows/deploy.yml`: lint, typecheck, test, build, deploy to Pages on push to `main`.
+- `vite.config.ts`: `base` is `/mastermind/` for builds (GitHub Pages), `BASE_PATH` if set
+  (PR previews), and `/` in dev.
+- `.github/workflows/deploy.yml`: lint, typecheck, test, build, then push `dist/` to the
+  `gh-pages` branch (which Pages serves) on push to `main`. Leaves `pr-preview/` untouched.
+- `.github/workflows/pr-preview.yml`: same checks on each PR, then deploys a preview to
+  `/mastermind/pr-preview/pr-<number>/` and comments the link; removes it when the PR closes.
+  Previews don't work for PRs from forks.
 
 ## Aurelia conventions
 
