@@ -9,19 +9,31 @@ Deployed to GitHub Pages at https://jussimattila-monad.github.io/mastermind/.
 npm start           # dev server on http://localhost:9000
 npm run lint        # ESLint (src/**/*.ts) + Stylelint (src/**/*.css)
 npm run typecheck   # tsc, strict, no emit
+npm test            # Vitest unit tests (src/**/*.test.ts)
 npm run build       # production build into dist/
+npm run check       # all of the above except start: lint, typecheck, test, build
 ```
 
-A change is done only when `npm run lint && npm run typecheck && npm run build` passes.
-CI runs the same three steps before deploying, so a failure blocks the deploy.
+A change is done only when `npm run check` passes.
+Commit with `/commit`; the message format is defined in `.claude/commands/commit.md`.
+CI runs the same steps before deploying, so a failure blocks the deploy.
+Keep scripts free of hooks that repeat these steps (e.g. a `pretest` that lints).
 
 ## Structure
 
 - `src/main.ts`: bootstraps Aurelia with the root component `MyApp`.
 - `src/my-app.ts` + `src/my-app.html`: root component.
 - `src/resource.d.ts`: module declarations for `.html` and `.css` imports.
-- `vite.config.ts`: `base` is `/mastermind/` for builds (GitHub Pages) and `/` in dev.
-- `.github/workflows/deploy.yml`: lint, typecheck, build, deploy to Pages on push to `main`.
+- `src/game/`: game rules, no Aurelia imports; components import from `src/game/index.ts`.
+  State is immutable: `newGame()` (setup) → `startGame()` (playing) → `makeGuess()` (won/lost).
+  `Color` is a union of the supported colors in `ALL_COLORS`; `GameConfig.colors` picks the palette.
+- `vite.config.ts`: `base` is `/mastermind/` for builds (GitHub Pages), `BASE_PATH` if set
+  (PR previews), and `/` in dev.
+- `.github/workflows/deploy.yml`: lint, typecheck, test, build, then push `dist/` to the
+  `gh-pages` branch (which Pages serves) on push to `main`. Leaves `pr-preview/` untouched.
+- `.github/workflows/pr-preview.yml`: same checks on each PR, then deploys a preview to
+  `/mastermind/pr-preview/pr-<number>/` and comments the link; removes it when the PR closes.
+  Previews don't work for PRs from forks.
 
 ## Aurelia conventions
 

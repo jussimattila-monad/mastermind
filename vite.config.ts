@@ -3,8 +3,9 @@ import { nodePolyfills } from 'vite-plugin-node-polyfills'
 import aurelia from '@aurelia/vite-plugin';
 
 export default defineConfig(({ command }) => ({
-  // GitHub Pages serves the app from https://<user>.github.io/mastermind/
-  base: command === 'build' ? '/mastermind/' : '/',
+  // GitHub Pages serves the app from https://<user>.github.io/mastermind/;
+  // PR previews set BASE_PATH to their own subdirectory
+  base: command === 'build' ? (process.env.BASE_PATH ?? '/mastermind/') : '/',
   server: {
     open: !process.env.CI,
     port: 9000,
