@@ -15,6 +15,7 @@ npm run check       # all of the above except start: lint, typecheck, test, buil
 ```
 
 A change is done only when `npm run check` passes.
+Commit with `/commit`; the message format is defined in `.claude/commands/commit.md`.
 CI runs the same steps before deploying, so a failure blocks the deploy.
 Keep scripts free of hooks that repeat these steps (e.g. a `pretest` that lints).
 
