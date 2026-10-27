@@ -31,10 +31,10 @@
     "lint:css": "stylelint --allow-empty-input \"src/**/*.css\"",
     "lint": "npm run lint:js && npm run lint:css",
     "typecheck": "tsc",
-    "pretest": "npm run lint",
     "start": "vite",
     "build": "vite build",
-    "test": "vitest run"
+    "test": "vitest run",
+    "check": "npm run lint && npm run typecheck && npm test && npm run build"
   },
   "type": "module"
 }

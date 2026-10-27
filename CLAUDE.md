@@ -11,10 +11,12 @@ npm run lint        # ESLint (src/**/*.ts) + Stylelint (src/**/*.css)
 npm run typecheck   # tsc, strict, no emit
 npm test            # Vitest unit tests (src/**/*.test.ts)
 npm run build       # production build into dist/
+npm run check       # all of the above except start: lint, typecheck, test, build
 ```
 
-A change is done only when `npm run lint && npm run typecheck && npm test && npm run build` passes.
+A change is done only when `npm run check` passes.
 CI runs the same steps before deploying, so a failure blocks the deploy.
+Keep scripts free of hooks that repeat these steps (e.g. a `pretest` that lints).
 
 ## Structure
 
