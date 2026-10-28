@@ -30,6 +30,9 @@ jobs:
         env:
           # The preview is served from https://<user>.github.io/mastermind/pr-preview/pr-<number>/
           BASE_PATH: /${{ github.event.repository.name }}/pr-preview/pr-${{ github.event.number }}/
+      # Pages reads .nojekyll only at the root, which production provides; removing a preview
+      # keeps dotfiles, so a copy here would stay behind after the PR closes
+      - run: rm dist/.nojekyll
       - id: preview
         uses: rossjrw/pr-preview-action@v1
         with:
