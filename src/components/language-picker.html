@@ -1,0 +1,6 @@
+<label>
+  <span t="language.label"></span>
+  <select value.bind="language">
+    <option repeat.for="l of languages" value.bind="l.code" lang.bind="l.code">${l.name}</option>
+  </select>
+</label>

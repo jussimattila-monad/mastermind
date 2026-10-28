@@ -1,0 +1,55 @@
+{
+  "app": {
+    "title": "Mastermind"
+  },
+  "language": {
+    "label": "Language"
+  },
+  "welcome": {
+    "title": "Welcome to Mastermind",
+    "intro": "Crack the secret code before you run out of guesses.",
+    "rules": {
+      "code": "The code has {{pegs}} pegs, each one of {{colors}} colors.",
+      "duplicates": "A color can appear more than once.",
+      "guesses_one": "You have {{count}} guess.",
+      "guesses_other": "You have {{count}} guesses.",
+      "exact": "A dark dot: one peg has the right color in the right place.",
+      "misplaced": "A light dot: one peg has the right color in the wrong place.",
+      "order": "The dots don't tell you which pegs they mean."
+    },
+    "playClassic": "Play classic Mastermind"
+  },
+  "game": {
+    "guessesLeft_one": "{{count}} guess left",
+    "guessesLeft_other": "{{count}} guesses left",
+    "submit": "Guess",
+    "clear": "Clear",
+    "quit": "Quit",
+    "confirmQuit": "Quit this game? It can't be continued.",
+    "won_one": "Solved in {{count}} guess!",
+    "won_other": "Solved in {{count}} guesses!",
+    "lost": "Out of guesses.",
+    "secret": "The secret code",
+    "playAgain": "Play again",
+    "mainMenu": "Main menu"
+  },
+  "board": {
+    "row": "Guess {{n}}",
+    "slot": "Position {{n}}: {{color}}",
+    "emptySlot": "Position {{n}}: empty",
+    "feedback": "{{exact}} right place, {{misplaced}} wrong place",
+    "palette": "Colors"
+  },
+  "colors": {
+    "red": "Red",
+    "green": "Green",
+    "blue": "Blue",
+    "yellow": "Yellow",
+    "orange": "Orange",
+    "purple": "Purple",
+    "pink": "Pink",
+    "cyan": "Cyan",
+    "white": "White",
+    "black": "Black"
+  }
+}
