@@ -34,11 +34,19 @@ Keep scripts free of hooks that repeat these steps (e.g. a `pretest` that lints)
   `BASE_PATH` if set (PR previews), and `/` in dev.
 - `e2e/`: Playwright tests; `helpers.ts` seeds a saved game with a known secret.
   `playwright.config.ts` starts the dev server unless `E2E_BASE_URL` is set.
-- `.github/workflows/deploy.yml`: lint, typecheck, test, build, then push `dist/` to the
-  `gh-pages` branch (which Pages serves) on push to `main`. Leaves `pr-preview/` untouched.
-- `.github/workflows/pr-preview.yml`: same checks on each PR, then deploys a preview to
-  `/mastermind/pr-preview/pr-<number>/` and comments the link; removes it when the PR closes.
-  Previews don't work for PRs from forks.
+
+## GitHub Actions
+
+Pages serves the `gh-pages` branch: production at its root, PR previews under `pr-preview/`.
+
+| Workflow | File | Runs on | Does |
+|---|---|---|---|
+| Deploy production | `deploy-production.yml` | push to `main`, manual | `npm run check`, push `dist/` to `gh-pages` (keeps `pr-preview/`) |
+| Deploy PR preview | `deploy-pr-preview.yml` | PR opened/updated/closed | `npm run check`, deploy to `/mastermind/pr-preview/pr-<number>/`, comment the link, `npm run e2e` against it; removes it on close |
+| Respond to @claude | `claude.yml` | `@claude` in issues, PRs, reviews | Runs Claude Code on the request |
+| pages-build-deployment | GitHub built-in | push to `gh-pages` | Publishes the branch; it can't be renamed and goes away only if Pages stops serving a branch, which would end PR previews |
+
+Previews don't work for PRs from forks.
 
 ## Layers
 
