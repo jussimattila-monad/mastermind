@@ -42,11 +42,13 @@ Pages serves the `gh-pages` branch: production at its root, PR previews under `p
 | Workflow | File | Runs on | Does |
 |---|---|---|---|
 | Deploy production | `deploy-production.yml` | push to `main`, manual | `npm run check`, push `dist/` to `gh-pages` (keeps `pr-preview/`) |
-| Deploy PR preview | `deploy-pr-preview.yml` | PR opened/updated/closed | `npm run check`, deploy to `/mastermind/pr-preview/pr-<number>/`, comment the link, `npm run e2e` against it; removes it on close |
+| Deploy PR preview | `deploy-pr-preview.yml` | PR opened/updated | `npm run check`, deploy to `/mastermind/pr-preview/pr-<number>/`, comment the link, `npm run e2e` against it |
+| Remove PR preview | `remove-pr-preview.yml` | PR closed or merged | Removes the preview and updates the comment |
 | Respond to @claude | `claude.yml` | `@claude` in issues, PRs, reviews | Runs Claude Code on the request |
 | pages-build-deployment | GitHub built-in | push to `gh-pages` | Publishes the branch; it can't be renamed and goes away only if Pages stops serving a branch, which would end PR previews |
 
-PRs from forks (and Dependabot) get no preview: their read-only token can't push to `gh-pages`, so both preview jobs are skipped.
+PRs from forks (and Dependabot) get no preview: their read-only token can't push to `gh-pages`, so the preview workflows skip their jobs.
+Deploy and remove are separate workflows so that an open PR shows no skipped checks.
 
 ## Layers
 
