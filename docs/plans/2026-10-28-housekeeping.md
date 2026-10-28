@@ -3,7 +3,7 @@
 > [CLAUDE.md](../../CLAUDE.md) and the code where they differ. What was actually done, including
 > changes to the plan, is in [Outcome](#outcome) at the end.
 >
-> - **Planned:** 2026-10-28 (plan last edited 12:14 EET)
+> - **Planned:** 2026-10-28 (plan approved 12:18 EET)
 > - **Carried out:** 2026-10-28, in [PR #5](https://github.com/jussimattila-monad/mastermind/pull/5)
 >   (merged 12:58 EET), [PR #6](https://github.com/jussimattila-monad/mastermind/pull/6) (13:09) and
 >   [PR #7](https://github.com/jussimattila-monad/mastermind/pull/7) (13:21)
@@ -186,6 +186,16 @@ Written for visitors and contributors:
 ## Outcome
 
 *Added afterwards, on 2026-10-28, at the end of the session that carried out the plan.*
+
+### Planning
+
+The user listed three problems to start from: unclear workflow names, no way to run browser tests
+against a chosen target, and a template README. A review of the repo added the rest. Before
+approving the plan at 12:18 EET, the user decided four things:
+- Keep `gh-pages`, and document the built-in pages-build-deployment workflow.
+- Name the workflows with verb phrases.
+- Run the e2e tests in CI against each PR preview.
+- Remove the unused dependencies.
 
 All six sections were carried out in PR #5, mostly as planned. Several issues came up along the
 way. Two follow-up PRs fixed what showed up after merging, and upgraded everything to the latest

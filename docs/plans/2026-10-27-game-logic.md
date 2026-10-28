@@ -3,7 +3,7 @@
 > [CLAUDE.md](../../CLAUDE.md) and the code where they differ. What was actually done, including
 > changes to the plan, is in [Outcome](#outcome) at the end.
 >
-> - **Planned:** 2026-10-27 (plan last edited 10:00 EET)
+> - **Planned:** 2026-10-27 (plan approved 10:03 EET)
 > - **Carried out:** 2026-10-27, in [PR #3](https://github.com/jussimattila-monad/mastermind/pull/3) (merged 15:14 EET)
 
 # Plan: Mastermind game logic
@@ -100,35 +100,55 @@ UI. The first setup screen will be a single "Start with classic rules" button ca
 
 ## Outcome
 
-*Added afterwards, on 2026-10-28. Reconstructed from the commits and the PR #3 description; the
-planning session itself isn't available.*
+*Added afterwards, on 2026-10-28, from the planning session's transcript, its commits and the PR #3
+description.*
+
+### Planning
+
+The first draft asked which rule set to target and whether to add a test runner. Instead of
+answering, the user asked for `Color` to be a union of preset colors that the game supports. The
+plan was updated and approved at 10:03 EET.
+
+### As planned
 
 The rules were built as planned: `types.ts`, `config.ts`, `secret.ts`, `score.ts`, `game.ts` and
-`index.ts` in `src/game/`, with 36 unit tests covering the cases the plan lists. Vitest 5.0.5 runs
-with the existing Vite config; the fallback `vitest.config.ts` wasn't needed.
+`index.ts` in `src/game/`. Vitest 5.0.5 works with the existing Vite config, so the fallback
+`vitest.config.ts` wasn't needed.
 
 ### Changes from the plan
 
-- **Immutability is stricter than planned:** transitions copy the config and guess arrays the
-  caller passes in, so the UI can reuse its input row without changing the guess history.
-  `CLASSIC` is frozen.
-- **The `pretest` lint hook was removed** instead of kept: it made lint run twice. `npm run check`
-  (lint, typecheck, test, build) was added and became the done-criterion in CLAUDE.md.
+- **Reviewer findings:** the `reviewer` agent ran as planned and found no scoring or win/loss bugs.
+  It found two ways saved state could change afterwards:
+  - `makeGuess` stored the caller's array, so a UI that reused its input row would have changed
+    earlier guesses. It now stores a copy.
+  - Every game shared the mutable `CLASSIC` object. `CLASSIC` is now frozen, `startGame` copies the
+    config, and the state and config types are read-only.
+  - Also from the review: `score` and `generateSecret` don't validate their input, so they're no
+    longer exported. More tests took the total from 31 to 36.
+- **No `pretest` hook:** the plan kept the hook that linted before `npm test`. The user had it
+  removed: "we never want to do unnecessary repeated work". CI then ran plain `npm test`.
 
-### Added beyond the plan (same PR)
+### Added beyond the plan, at the user's request
 
-- **`/commit` command** (`.claude/commands/commit.md`): one commit message format for the project,
-  used for every commit since.
-- **PR previews:** `pr-preview.yml` deploys each PR to `/mastermind/pr-preview/pr-<number>/`. This
-  moved production to a `gh-pages` branch (JamesIves/github-pages-deploy-action), made the build
-  base configurable with `BASE_PATH`, and added `public/.nojekyll`.
-
-### Not recorded
-
-The plan's verification asked for a `reviewer` agent run. PR #3 doesn't say whether one ran.
+- **`npm run check`:** one command for lint, typecheck, test and build. It became the
+  done-criterion in CLAUDE.md. CI kept separate steps, so its log shows which step failed.
+- **`/commit` command** (`.claude/commands/commit.md`):
+  - The first proposal had no type prefixes.
+  - The user asked for structure like the
+    [commit command reference](https://nikiforovall.blog/claude-code-rules/component-reference/commands/commit/),
+    simplified for this project.
+  - The result: an emoji, a type and a scope; six types; scopes for the project's areas.
+  - It made the PR's first three commits.
+- **PR previews:** after opening PR #3, the user asked for previews with
+  [Deploy PR Preview](https://github.com/marketplace/actions/deploy-pr-preview).
+  - `pr-preview.yml` deploys each PR to `/mastermind/pr-preview/pr-<number>/`.
+  - Production moved to a `gh-pages` branch (JamesIves/github-pages-deploy-action).
+  - The build base became configurable with `BASE_PATH`, and `public/.nojekyll` was added.
+  - The user chose to commit this into PR #3 rather than a PR of its own.
+  - After merging, the Pages source was switched to the `gh-pages` branch.
 
 ### Later changes to this code
 
 - PR #4 capped configs at `MAX_PEGS` (10) and `MAX_GUESSES` (20) after a review found that an
   oversized saved config could freeze the app.
-- The free game configuration the plan prepared for (the setup phase) hasn't been built yet.
+- The free game configuration the setup phase was designed for hasn't been built yet.
