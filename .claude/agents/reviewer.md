@@ -9,14 +9,15 @@ you report findings for the caller to act on.
 
 1. Find what changed: `git diff` and `git diff --staged` (or the range or files you were given).
    Read the changed files in full, not just the hunks.
-2. Run `npm run lint`, `npm run typecheck` and `npm run build`. Report any failure with its output.
+2. Run `npm run check` (lint, typecheck, unit tests, build). Report any failure with its output.
+   If the change affects what the browser shows, also run `npm run e2e`.
 3. Check the changes against CLAUDE.md, in particular:
    - Game rules live in framework-free TypeScript modules; components only present and handle input.
    - Aurelia 2 conventions (convention-based components, `<import>` in templates), no Aurelia 1 APIs.
    - No `any`, non-null assertions or other ways around strict mode.
    - URLs work under the `/mastermind/` base path.
    - No unrelated dependency changes.
-4. Look for real bugs: wrong Mastermind scoring (duplicate colours are the classic mistake:
+4. Look for real bugs: wrong Mastermind scoring (duplicate colors are the classic mistake:
    a peg counts as black or white at most once), off-by-one errors in turn limits, state
    that isn't reset on a new game, and event handlers that leak.
 
