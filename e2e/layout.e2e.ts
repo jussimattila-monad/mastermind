@@ -8,6 +8,11 @@ const PHONES = [
   { name: 'narrow phone', width: 360, height: 740 },
 ];
 
+const RESULT_TEXTS = [
+  { locale: 'en-US', won: 'Solved in 9 guesses!', buttons: ['Play again', 'Main menu'] },
+  { locale: 'fi-FI', won: 'Ratkaistu 9 arvauksella!', buttons: ['Pelaa uudelleen', 'Päävalikko'] },
+];
+
 async function expectNoScroll(page: Page): Promise<void> {
   const { scroll, viewport } = await page.evaluate(() => ({
     scroll: document.documentElement.scrollHeight,
@@ -28,16 +33,24 @@ for (const phone of PHONES) {
       await expectNoScroll(page);
     });
 
-    test('shows the whole result of a long game without scrolling', async ({ page }) => {
-      const misses = (['red', 'green', 'blue', 'yellow', 'orange', 'purple', 'red', 'green'] as const)
-        .map(color => [color, color, color, color] as const);
-      await seedGame(page, savedGame([...misses, SECRET]));
-      await page.goto('./');
+    // Finnish has the longest result texts, which wrap on a narrow phone.
+    for (const language of RESULT_TEXTS) {
+      test.describe(`in ${language.locale}`, () => {
+        test.use({ locale: language.locale });
 
-      await expect(page.getByRole('heading', { name: 'Solved in 9 guesses!' })).toBeVisible();
-      await expect(page.getByRole('button', { name: 'Play again' })).toBeInViewport({ ratio: 1 });
-      await expect(page.getByRole('button', { name: 'Main menu' })).toBeInViewport({ ratio: 1 });
-      await expectNoScroll(page);
-    });
+        test('shows the whole result of a finished game without scrolling', async ({ page }) => {
+          const misses = (['red', 'green', 'blue', 'yellow', 'orange', 'purple', 'red', 'green'] as const)
+            .map(color => [color, color, color, color] as const);
+          await seedGame(page, savedGame([...misses, SECRET]));
+          await page.goto('./');
+
+          await expect(page.getByRole('heading', { name: language.won })).toBeVisible();
+          for (const name of language.buttons) {
+            await expect(page.getByRole('button', { name })).toBeInViewport({ ratio: 1 });
+          }
+          await expectNoScroll(page);
+        });
+      });
+    }
   });
 }

@@ -18,6 +18,10 @@
   margin: 0;
 }
 
+.result h2 {
+  font-size: 1.25rem;
+}
+
 .result-label {
   color: var(--text-muted);
 }
@@ -27,9 +31,9 @@
   gap: var(--gap);
 }
 
+/* One row: with long translations the buttons wrap their text instead of each other. */
 .result-actions {
   display: flex;
-  flex-wrap: wrap;
   gap: var(--gap);
   justify-content: center;
 }

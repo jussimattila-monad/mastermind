@@ -43,3 +43,15 @@
     0 0 0 1px var(--surface),
     0 0 0 3px var(--accent);
 }
+
+/* Focus sits just outside the active ring, so it gets another color to tell them apart. */
+.slot:focus-visible {
+  outline-color: var(--text);
+}
+
+/* Forced colors drop box shadows. */
+@media (forced-colors: active) {
+  .slot-active {
+    outline: 2px solid Highlight;
+  }
+}
