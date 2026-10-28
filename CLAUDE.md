@@ -11,7 +11,8 @@ npm run lint        # ESLint (src/**/*.ts) + Stylelint (src/**/*.css)
 npm run typecheck   # tsc, strict, no emit
 npm test            # Vitest unit tests (src/**/*.test.ts)
 npm run build       # production build into dist/
-npm run check       # all of the above except start: lint, typecheck, test, build
+npm run preview     # serve dist/ under its base path on http://localhost:4173/mastermind/
+npm run check       # lint, typecheck, test, build
 ```
 
 A change is done only when `npm run check` passes.
@@ -25,8 +26,8 @@ Keep scripts free of hooks that repeat these steps (e.g. a `pretest` that lints)
 - `src/my-app.*`: root component; header with the language picker, then `welcome-screen` in
   setup and `game-board` otherwise. Views follow the game state; there is no router.
 - `src/resource.d.ts`: module declarations for `.html` and `.css` imports.
-- `vite.config.ts`: `base` is `/mastermind/` for builds (GitHub Pages), `BASE_PATH` if set
-  (PR previews), and `/` in dev.
+- `vite.config.ts`: `base` is `/mastermind/` for builds and `vite preview` (GitHub Pages),
+  `BASE_PATH` if set (PR previews), and `/` in dev.
 - `.github/workflows/deploy.yml`: lint, typecheck, test, build, then push `dist/` to the
   `gh-pages` branch (which Pages serves) on push to `main`. Leaves `pr-preview/` untouched.
 - `.github/workflows/pr-preview.yml`: same checks on each PR, then deploys a preview to
