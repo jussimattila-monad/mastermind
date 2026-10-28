@@ -1,6 +1,6 @@
 import { I18N } from '@aurelia/i18n';
 import { resolve } from 'aurelia';
-import type { Color } from '../game';
+import { CLASSIC, type Color } from '../game';
 import { buildBoard, type BoardView } from '../play/board';
 import { GuessDraft } from '../play/guess-draft';
 import { keyToCommand, type Command } from '../play/keyboard';
@@ -8,19 +8,23 @@ import { GameSession } from '../session/game-session';
 
 // Connects the session and the input row to the presentational board components.
 export class GameBoard {
+  public rowsElement?: HTMLElement;
   private readonly session = resolve(GameSession);
   private readonly i18n = resolve(I18N);
-  private readonly draft: GuessDraft;
-
-  public constructor() {
-    const state = this.session.state;
-    this.draft = new GuessDraft(state.status === 'setup' ? 0 : state.config.pegs);
-  }
+  // Replaced in binding(): `if` caches this component, so the same instance shows every game.
+  private draft = new GuessDraft(CLASSIC.pegs);
 
   // Undefined only for a moment after quitting, before this component is removed.
   public get board(): BoardView | undefined {
     const state = this.session.state;
     return state.status === 'setup' ? undefined : buildBoard(state, this.draft);
+  }
+
+  public binding(): void {
+    const state = this.session.state;
+    if (state.status !== 'setup') {
+      this.draft = new GuessDraft(state.config.pegs);
+    }
   }
 
   public pick(color: Color): void {
@@ -39,9 +43,16 @@ export class GameBoard {
 
   public submit(): void {
     const code = this.draft.code;
-    if (this.board?.canSubmit && code) {
-      this.session.guess(code);
-      this.draft.reset();
+    if (!this.board?.canSubmit || !code) {
+      return;
+    }
+    // A focused slot turns into a plain peg once its row is submitted; keep focus in the board.
+    const focusWasInRow = document.activeElement?.closest('.row-current') != null;
+    this.session.guess(code);
+    this.draft.reset();
+    if (focusWasInRow) {
+      // The new current row is rendered after this handler returns.
+      queueMicrotask(() => this.rowsElement?.querySelector<HTMLElement>('.row-current .slot-active')?.focus());
     }
   }
 
@@ -63,9 +74,9 @@ export class GameBoard {
   public run(command: Command): void {
     switch (command.type) {
       case 'pick': {
-        const color = this.board?.palette[command.index];
-        if (color) {
-          this.pick(color);
+        const entry = this.board?.palette[command.index];
+        if (entry) {
+          this.pick(entry.color);
         }
         break;
       }

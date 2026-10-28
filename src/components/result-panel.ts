@@ -6,4 +6,9 @@ export class ResultPanel {
   @bindable public result?: ResultView;
   @bindable public playAgain?: () => void;
   @bindable public mainMenu?: () => void;
+  public heading?: HTMLElement;
+
+  public attached(): void {
+    this.heading?.focus();
+  }
 }

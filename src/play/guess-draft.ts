@@ -10,6 +10,9 @@ export class GuessDraft {
   private activeSlot = 0;
 
   public constructor(public readonly size: number) {
+    if (!Number.isInteger(size) || size < 1) {
+      throw new Error(`size must be a positive integer, got ${size}`);
+    }
     this.currentSlots = Array<Slot>(size).fill(null);
   }
 

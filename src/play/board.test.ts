@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { CLASSIC, makeGuess, newGame, startGame, type Code, type GameConfig, type StartedState } from '../game';
+import { ALL_COLORS, CLASSIC, makeGuess, newGame, startGame, type Code, type GameConfig, type StartedState } from '../game';
 import { buildBoard, type DraftView } from './board';
 
 // random() always 0 picks the first palette color for every peg.
@@ -18,7 +18,7 @@ describe('buildBoard', () => {
     expect(board.rows[0]).toEqual({ kind: 'current', number: 1, pegs: EMPTY_DRAFT.slots, activeSlot: 0 });
     expect(board.rows.slice(1).every(row => row.kind === 'empty' && row.pegs.length === 4)).toBe(true);
     expect(board.rows.map(row => row.number)).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
-    expect(board.palette).toEqual(CLASSIC.colors);
+    expect(board.palette).toEqual(CLASSIC.colors.map((color, i) => ({ color, key: String(i + 1) })));
     expect(board.pegs).toBe(4);
     expect(board.guessesLeft).toBe(10);
     expect(board.playing).toBe(true);
@@ -73,6 +73,12 @@ describe('buildBoard', () => {
     expect(board.result).toEqual({ outcome: 'lost', guessCount: 1, secret: SECRET });
     expect(board.rows.map(row => row.kind)).toEqual(['past']);
     expect(board.guessesLeft).toBe(0);
+  });
+
+  it('gives only the first nine palette colors a key', () => {
+    const colors = [...ALL_COLORS];
+    const board = buildBoard(started({ ...CLASSIC, colors }), EMPTY_DRAFT);
+    expect(board.palette.map(entry => entry.key)).toEqual(['1', '2', '3', '4', '5', '6', '7', '8', '9', undefined]);
   });
 
   it('follows the config for row count and row length', () => {

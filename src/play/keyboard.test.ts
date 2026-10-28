@@ -1,9 +1,30 @@
 import { describe, expect, it } from 'vitest';
-import { keyToCommand, type KeyPress } from './keyboard';
+import { keyToCommand, paletteKey, type KeyPress } from './keyboard';
 
 function press(key: string, modifiers: Partial<KeyPress> = {}): KeyPress {
   return { key, ctrlKey: false, altKey: false, metaKey: false, ...modifiers };
 }
+
+describe('paletteKey', () => {
+  it('numbers the first nine positions from 1', () => {
+    expect(paletteKey(0)).toBe('1');
+    expect(paletteKey(8)).toBe('9');
+  });
+
+  it('has no key from the tenth position on', () => {
+    expect(paletteKey(9)).toBeUndefined();
+    expect(paletteKey(-1)).toBeUndefined();
+  });
+
+  it('agrees with keyToCommand', () => {
+    for (let index = 0; index < 10; index++) {
+      const key = paletteKey(index);
+      if (key) {
+        expect(keyToCommand(press(key), 10)).toEqual({ type: 'pick', index });
+      }
+    }
+  });
+});
 
 describe('keyToCommand', () => {
   it('maps number keys to palette positions', () => {

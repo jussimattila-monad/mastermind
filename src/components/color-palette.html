@@ -2,14 +2,14 @@
 
 <div class="palette" role="group" t="[aria-label]board.palette">
   <button
-    repeat.for="color of colors"
+    repeat.for="entry of entries"
     type="button"
     class="palette-color"
     data-board-input
-    t.bind="'[aria-label,title]colors.' + color"
-    click.trigger="pick?.(color)"
+    t.bind="'[aria-label,title]colors.' + entry.color"
+    click.trigger="pick?.(entry.color)"
   >
-    <code-peg color.bind="color"></code-peg>
-    <span if.bind="$index < 9" class="palette-key" aria-hidden="true">${$index + 1}</span>
+    <code-peg color.bind="entry.color"></code-peg>
+    <span if.bind="entry.key" class="palette-key" aria-hidden="true">${entry.key}</span>
   </button>
 </div>

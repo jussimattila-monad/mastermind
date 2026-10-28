@@ -9,6 +9,22 @@ describe('GuessDraft', () => {
     expect(draft.code).toBeUndefined();
   });
 
+  it('rejects a size below 1', () => {
+    expect(() => new GuessDraft(0)).toThrow(/size/);
+    expect(() => new GuessDraft(1.5)).toThrow(/size/);
+  });
+
+  it('works with a single slot', () => {
+    const draft = new GuessDraft(1);
+    draft.pick('red');
+    draft.pick('blue');
+    expect(draft.code).toEqual(['blue']);
+    draft.backspace();
+    draft.move(1);
+    expect(draft.slots).toEqual([null]);
+    expect(draft.active).toBe(0);
+  });
+
   it('fills slots in order and returns the complete code', () => {
     const draft = new GuessDraft(4);
     draft.pick('red');

@@ -98,7 +98,8 @@ button.link {
   text-decoration: underline;
 }
 
-button:disabled {
+button:disabled,
+button[aria-disabled="true"] {
   cursor: not-allowed;
   opacity: 0.45;
 }

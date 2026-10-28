@@ -1,5 +1,6 @@
 import { guessesLeft, isValidGuess, type Code, type Color, type Feedback, type StartedState } from '../game';
 import type { Slot } from './guess-draft';
+import { paletteKey } from './keyboard';
 
 // Plain data describing what the board shows. Templates bind to this and nothing else,
 // so the board's look can change without touching the rules or the input logic.
@@ -21,9 +22,15 @@ export interface ResultView {
   readonly secret: Code;
 }
 
+export interface PaletteEntry {
+  readonly color: Color;
+  // The number key that picks this color, if it has one.
+  readonly key?: string;
+}
+
 export interface BoardView {
   readonly rows: readonly RowView[];
-  readonly palette: readonly Color[];
+  readonly palette: readonly PaletteEntry[];
   readonly pegs: number;
   readonly guessesLeft: number;
   readonly playing: boolean;
@@ -65,7 +72,7 @@ export function buildBoard(state: StartedState, draft: DraftView): BoardView {
 
   return {
     rows,
-    palette: config.colors,
+    palette: config.colors.map((color, i) => ({ color, key: paletteKey(i) })),
     pegs: config.pegs,
     guessesLeft: guessesLeft(state),
     playing,
