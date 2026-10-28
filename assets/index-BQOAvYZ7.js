@@ -96,8 +96,9 @@ Inspect the AggregateError.errors array for the original errors and stack traces
     t.bind="result.outcome === 'won' ? 'game.won' : 'game.lost'"
     t-params.bind="{ count: result.guessCount }"
   ></h2>
-  <p class="result-label" t="game.secret"></p>
-  <div class="result-secret">
+  <!-- The group below carries the same label for screen readers. -->
+  <p class="result-label" aria-hidden="true" t="game.secret"></p>
+  <div class="result-secret" role="group" t="[aria-label]game.secret">
     <code-peg repeat.for="color of result.secret" color.bind="color"></code-peg>
   </div>
   <div class="result-actions">
