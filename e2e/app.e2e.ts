@@ -20,7 +20,8 @@ test('loads under its base path without errors', async ({ page, baseURL }) => {
 
   await expect(page).toHaveTitle('Mastermind');
   await expect(page.getByRole('heading', { name: 'Welcome to Mastermind' })).toBeVisible();
-  // Every asset, the favicon included, comes from under the base path.
+  // Every asset, the favicon included, comes from under the base path. The dev server's base is
+  // `/`, so this checks something only against a build: `npm run preview` or a deployed URL.
   const favicon = await page.locator('link[rel="icon"]').evaluate(link => (link as HTMLLinkElement).href);
   expect(favicon.startsWith(baseURL ?? '')).toBe(true);
   expect((await page.request.get(favicon)).ok()).toBe(true);

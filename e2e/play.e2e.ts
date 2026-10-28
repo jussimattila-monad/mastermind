@@ -20,8 +20,12 @@ test.describe('a new game', () => {
 
     await enterGuess(page, ['red', 'red', 'red']);
     await expect(submit).toHaveAttribute('aria-disabled', 'true');
-    // Playwright won't click an aria-disabled button; Enter tries to submit anyway.
+    // Enter (on the focused palette color) and a click (forced past Playwright's aria-disabled
+    // check) neither submit nor pick another color.
     await page.keyboard.press('Enter');
+    await submit.click({ force: true });
+    await expect(row(page, 1).getByRole('button', { name: 'Position 3: Red' })).toBeVisible();
+    await expect(row(page, 1).getByRole('button', { name: 'Position 4: empty' })).toBeVisible();
     await expect(page.getByText('10 guesses left')).toBeVisible();
 
     await enterGuess(page, ['red']);
