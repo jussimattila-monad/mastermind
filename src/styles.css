@@ -38,6 +38,13 @@
   --radius: 0.75rem;
 }
 
+/* Smaller pegs on short screens, so the whole board fits a phone without scrolling. */
+@media (height <= 48rem) {
+  :root {
+    --peg-size: 1.9rem;
+  }
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     --bg: #161513;
