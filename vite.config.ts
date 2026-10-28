@@ -1,5 +1,4 @@
 import { defineConfig } from 'vite';
-import { nodePolyfills } from 'vite-plugin-node-polyfills'
 import aurelia from '@aurelia/vite-plugin';
 
 export default defineConfig(({ command }) => ({
@@ -18,6 +17,5 @@ export default defineConfig(({ command }) => ({
       // Aurelia's dev build has better error messages; keep it out of production
       useDev: command === 'serve',
     }),
-    nodePolyfills(),
   ],
 }));
