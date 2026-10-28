@@ -61,6 +61,7 @@ describe('serializeGame / restoreGame', () => {
     expect(restoreGame({ ...valid, config: { ...CLASSIC, pegs: '4' } })).toBeUndefined();
     expect(restoreGame({ ...valid, config: { ...CLASSIC, colors: ['red', 'magenta'] } })).toBeUndefined();
     expect(restoreGame({ ...valid, config: { ...CLASSIC, colors: [] } })).toBeUndefined();
+    expect(restoreGame({ ...valid, config: { ...CLASSIC, maxGuesses: 10_000_000 } })).toBeUndefined();
   });
 
   it('rejects an invalid secret', () => {
