@@ -1,6 +1,6 @@
 # Mastermind
 
-A Mastermind code-breaking game built with Aurelia 2 (`2.0.0-rc.2`), TypeScript 6 and Vite 7.
+A Mastermind code-breaking game built with Aurelia 2 (`2.0.0-rc.2`), TypeScript 6 and Vite 8.
 Deployed to GitHub Pages at https://jussimattila-monad.github.io/mastermind/.
 
 ## Commands
@@ -122,5 +122,11 @@ layers listed before it. `main.ts` wires everything up and sits outside the laye
 - Asset and link URLs must work under the `/mastermind/` base path; don't hard-code `/`.
 - Behavior that only the browser shows (rendering, focus, keyboard, storage, translations) gets an
   e2e test. Use role and label locators, and navigate with `page.goto('./')` so the base path holds.
-- Dependency versions are pinned on purpose: Aurelia packages exactly, `typescript` to `~6.0`
-  (typescript-eslint supports `<6.1`). Don't bump them as a side effect of other work.
+- Dependencies, GitHub Actions and Node stay on their latest supported versions unless there's a
+  good reason not to. Upgrade them in a change of their own, not as a side effect of other work.
+  The current exceptions:
+  - `typescript` stays on `~6.0` until typescript-eslint supports TypeScript 7 (its peer range
+    is `<6.1`).
+  - `@types/node` follows the Node LTS that CI runs (`lts/*`, now 24), not the newest Node.
+  - Aurelia packages are pinned exactly: `2.0.0-rc.2` is a pre-release.
+  - `@playwright/test` is pinned exactly to match the locally installed Chromium.
