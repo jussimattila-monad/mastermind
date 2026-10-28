@@ -41,7 +41,7 @@
 /* Smaller pegs on short screens, so the whole board fits a phone without scrolling. */
 @media (height <= 48rem) {
   :root {
-    --peg-size: 1.9rem;
+    --peg-size: 1.8rem;
   }
 }
 
