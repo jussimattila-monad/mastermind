@@ -15,9 +15,6 @@ export default defineConfig(({ command, isPreview }) => ({
     port: 9001,
     strictPort: true,
   },
-  esbuild: {
-    target: 'es2022'
-  },
   plugins: [
     aurelia({
       // Aurelia's dev build has better error messages; keep it out of production
