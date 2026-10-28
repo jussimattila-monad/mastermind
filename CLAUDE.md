@@ -7,11 +7,11 @@ Deployed to GitHub Pages at https://jussimattila-monad.github.io/mastermind/.
 
 ```bash
 npm start           # dev server on http://localhost:9000
-npm run lint        # ESLint (src/**/*.ts) + Stylelint (src/**/*.css)
+npm run lint        # ESLint (src/, e2e/, playwright.config.ts) + Stylelint (src/**/*.css)
 npm run typecheck   # tsc, strict, no emit
 npm test            # Vitest unit tests (src/**/*.test.ts)
 npm run build       # production build into dist/
-npm run preview     # serve dist/ under its base path on http://localhost:4173/mastermind/
+npm run preview     # serve dist/ under its base path on http://localhost:9001/mastermind/
 npm run check       # lint, typecheck, test, build
 npm run e2e         # Playwright browser tests (e2e/*.e2e.ts) against the dev server
 E2E_BASE_URL=https://jussimattila-monad.github.io/mastermind/ npm run e2e  # or any deployed URL

@@ -39,8 +39,8 @@ of the dev server, set `E2E_BASE_URL`:
 E2E_BASE_URL=https://jussimattila-monad.github.io/mastermind/ npm run e2e
 ```
 
-To try the production build locally: `npm run build && npm run preview`, then open
-http://localhost:4173/mastermind/.
+To try the production build locally, `npm run build && npm run preview` serves it at
+http://localhost:9001/mastermind/, the same path as on GitHub Pages.
 
 The game rules (`src/game/`) are plain TypeScript with no framework code. The UI is built in
 layers on top of them, so a redesign touches only templates and CSS. [CLAUDE.md](CLAUDE.md) has
