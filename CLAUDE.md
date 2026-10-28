@@ -13,9 +13,13 @@ npm test            # Vitest unit tests (src/**/*.test.ts)
 npm run build       # production build into dist/
 npm run preview     # serve dist/ under its base path on http://localhost:4173/mastermind/
 npm run check       # lint, typecheck, test, build
+npm run e2e         # Playwright browser tests (e2e/*.e2e.ts) against the dev server
+E2E_BASE_URL=https://jussimattila-monad.github.io/mastermind/ npm run e2e  # or any deployed URL
 ```
 
-A change is done only when `npm run check` passes.
+A change is done only when `npm run check` passes; run `npm run e2e` too when it changes what
+the browser shows. `e2e` stays out of `check` because it needs a browser. Locally, Playwright
+uses the Chromium in `~/.cache/ms-playwright`; `@playwright/test` is pinned to match it.
 Commit with `/commit`; the message format is defined in `.claude/commands/commit.md`.
 CI runs the same steps before deploying, so a failure blocks the deploy.
 Keep scripts free of hooks that repeat these steps (e.g. a `pretest` that lints).
@@ -28,6 +32,8 @@ Keep scripts free of hooks that repeat these steps (e.g. a `pretest` that lints)
 - `src/resource.d.ts`: module declarations for `.html` and `.css` imports.
 - `vite.config.ts`: `base` is `/mastermind/` for builds and `vite preview` (GitHub Pages),
   `BASE_PATH` if set (PR previews), and `/` in dev.
+- `e2e/`: Playwright tests; `helpers.ts` seeds a saved game with a known secret.
+  `playwright.config.ts` starts the dev server unless `E2E_BASE_URL` is set.
 - `.github/workflows/deploy.yml`: lint, typecheck, test, build, then push `dist/` to the
   `gh-pages` branch (which Pages serves) on push to `main`. Leaves `pr-preview/` untouched.
 - `.github/workflows/pr-preview.yml`: same checks on each PR, then deploys a preview to
@@ -104,5 +110,7 @@ layers listed before it. `main.ts` wires everything up and sits outside the laye
   Components handle presentation and user input only (see Layers).
 - TypeScript is `strict`; don't weaken it with `any` or non-null assertions to silence errors.
 - Asset and link URLs must work under the `/mastermind/` base path; don't hard-code `/`.
+- Behavior that only the browser shows (rendering, focus, keyboard, storage, translations) gets an
+  e2e test. Use role and label locators, and navigate with `page.goto('./')` so the base path holds.
 - Dependency versions are pinned on purpose: Aurelia packages exactly, `typescript` to `~6.0`
   (typescript-eslint supports `<6.1`). Don't bump them as a side effect of other work.
