@@ -1,9 +1,12 @@
 <import from="./components/language-picker"></import>
+<import from="./components/welcome-screen"></import>
 
 <header>
   <h1 t="app.title"></h1>
   <language-picker></language-picker>
 </header>
 <main>
-  <p t="welcome.intro"></p>
+  <welcome-screen if.bind="session.state.status === 'setup'"></welcome-screen>
+  <!-- Placeholder until the game board is added. -->
+  <button else type="button" class="placeholder-quit" click.trigger="session.quit()" t="game.mainMenu"></button>
 </main>
