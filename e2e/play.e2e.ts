@@ -101,7 +101,7 @@ test.describe('with a known secret', () => {
 
     const heading = page.getByRole('heading', { name: 'Solved in 1 guess!' });
     await expect(heading).toBeFocused();
-    await expect(page.locator('.result-secret').getByRole('img')).toHaveCount(4);
+    await expect(page.getByRole('group', { name: 'The secret code' }).getByRole('img')).toHaveCount(4);
     await expect(page.getByRole('group', { name: 'Colors' })).toBeHidden();
 
     await page.getByRole('button', { name: 'Play again' }).click();
@@ -110,14 +110,14 @@ test.describe('with a known secret', () => {
   });
 
   test('loses after the last wrong guess and shows the secret', async ({ page }) => {
-    await expect(page.locator('.result-secret')).toHaveCount(0);
+    await expect(page.getByRole('group', { name: 'The secret code' })).toHaveCount(0);
     for (let n = 1; n <= 10; n++) {
       await enterGuess(page, ['orange', 'orange', 'orange', 'orange']);
       await page.getByRole('button', { name: 'Guess', exact: true }).click();
     }
 
     await expect(page.getByRole('heading', { name: 'Out of guesses.' })).toBeVisible();
-    const secret = page.locator('.result-secret').getByRole('img');
+    const secret = page.getByRole('group', { name: 'The secret code' }).getByRole('img');
     await expect(secret).toHaveCount(4);
     for (const [i, color] of ['Red', 'Green', 'Blue', 'Yellow'].entries()) {
       await expect(secret.nth(i)).toHaveAccessibleName(color);
