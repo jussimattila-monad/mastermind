@@ -1,0 +1,13 @@
+<section class="welcome">
+  <h2 t="welcome.title"></h2>
+  <p t="welcome.intro"></p>
+  <ul class="welcome-rules">
+    <li t="welcome.rules.code" t-params.bind="{ pegs: config.pegs, colors: config.colors.length }"></li>
+    <li if.bind="config.allowDuplicates" t="welcome.rules.duplicates"></li>
+    <li t="welcome.rules.guesses" t-params.bind="{ count: config.maxGuesses }"></li>
+    <li t="welcome.rules.exact"></li>
+    <li t="welcome.rules.misplaced"></li>
+    <li t="welcome.rules.order"></li>
+  </ul>
+  <button type="button" class="welcome-play primary" click.trigger="play()" t="welcome.playClassic"></button>
+</section>

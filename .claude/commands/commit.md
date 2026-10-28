@@ -44,6 +44,7 @@ Co-Authored-By: Claude <model> <noreply@anthropic.com>
 | Scope    | Covers                                                        |
 |----------|---------------------------------------------------------------|
 | `game`   | Game rules in `src/game/`                                     |
+| `play`   | Input and board view model in `src/play/`                     |
 | `ui`     | Components, templates and CSS                                 |
 | `config` | `package.json` scripts, Vite, TypeScript, ESLint, Stylelint   |
 | `deps`   | Adding, removing or upgrading dependencies                    |

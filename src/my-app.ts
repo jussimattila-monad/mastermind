@@ -1,3 +1,6 @@
+import { resolve } from 'aurelia';
+import { GameSession } from './session/game-session';
+
 export class MyApp {
-  public message = 'Hello, world!';
+  public readonly session = resolve(GameSession);
 }

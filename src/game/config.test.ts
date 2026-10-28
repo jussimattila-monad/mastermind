@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { validateConfig } from './config';
+import { MAX_GUESSES, MAX_PEGS, validateConfig } from './config';
 import { CLASSIC } from './types';
 
 describe('validateConfig', () => {
@@ -11,6 +11,13 @@ describe('validateConfig', () => {
     expect(() => validateConfig({ ...CLASSIC, pegs: 0 })).toThrow(/pegs/);
     expect(() => validateConfig({ ...CLASSIC, pegs: 2.5 })).toThrow(/pegs/);
     expect(() => validateConfig({ ...CLASSIC, maxGuesses: 0 })).toThrow(/maxGuesses/);
+  });
+
+  it('rejects more pegs or guesses than the maximum', () => {
+    expect(() => validateConfig({ ...CLASSIC, pegs: MAX_PEGS })).not.toThrow();
+    expect(() => validateConfig({ ...CLASSIC, pegs: MAX_PEGS + 1 })).toThrow(/pegs/);
+    expect(() => validateConfig({ ...CLASSIC, maxGuesses: MAX_GUESSES })).not.toThrow();
+    expect(() => validateConfig({ ...CLASSIC, maxGuesses: 10_000_000 })).toThrow(/maxGuesses/);
   });
 
   it('rejects an empty palette', () => {

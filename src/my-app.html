@@ -1,1 +1,12 @@
-<h1>${message}</h1>
+<import from="./components/language-picker"></import>
+<import from="./components/welcome-screen"></import>
+<import from="./components/game-board"></import>
+
+<header class="app-header">
+  <h1 t="app.title"></h1>
+  <language-picker></language-picker>
+</header>
+<main>
+  <welcome-screen if.bind="session.state.status === 'setup'"></welcome-screen>
+  <game-board else></game-board>
+</main>

@@ -1,0 +1,27 @@
+my-app {
+  display: block;
+  max-inline-size: 28rem;
+  margin-inline: auto;
+  padding: 1rem;
+}
+
+.app-header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap) 1rem;
+  align-items: center;
+  justify-content: space-between;
+  margin-block-end: 1rem;
+}
+
+.app-header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.language-picker {
+  display: flex;
+  gap: var(--gap);
+  align-items: center;
+  color: var(--text-muted);
+}

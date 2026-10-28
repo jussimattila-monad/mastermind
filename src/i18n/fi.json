@@ -1,0 +1,56 @@
+{
+  "app": {
+    "title": "Mastermind"
+  },
+  "language": {
+    "label": "Kieli"
+  },
+  "welcome": {
+    "title": "Tervetuloa pelaamaan Mastermindia",
+    "intro": "Murra salainen koodi ennen kuin arvaukset loppuvat.",
+    "rules": {
+      "code": "Koodissa on {{pegs}} nappulaa, joista kukin on yksi {{colors}} väristä.",
+      "duplicates": "Sama väri voi esiintyä useammin kuin kerran.",
+      "guesses_one": "Sinulla on {{count}} arvaus.",
+      "guesses_other": "Sinulla on {{count}} arvausta.",
+      "exact": "Täytetty piste: yksi nappula on oikean värinen ja oikealla paikalla.",
+      "misplaced": "Rengas: yksi nappula on oikean värinen mutta väärällä paikalla.",
+      "order": "Pisteet eivät kerro, mitä nappuloita ne tarkoittavat."
+    },
+    "playClassic": "Pelaa klassista Mastermindia"
+  },
+  "game": {
+    "guessesLeft_one": "{{count}} arvaus jäljellä",
+    "guessesLeft_other": "{{count}} arvausta jäljellä",
+    "submit": "Arvaa",
+    "clear": "Tyhjennä",
+    "quit": "Lopeta",
+    "confirmQuit": "Lopetetaanko peli? Sitä ei voi jatkaa myöhemmin.",
+    "won_one": "Ratkaistu {{count}} arvauksella!",
+    "won_other": "Ratkaistu {{count}} arvauksella!",
+    "lost": "Arvaukset loppuivat.",
+    "secret": "Salainen koodi",
+    "playAgain": "Pelaa uudelleen",
+    "mainMenu": "Päävalikko"
+  },
+  "board": {
+    "row": "Arvaus {{n}}",
+    "slot": "Paikka {{n}}: $t(colors.{{color}})",
+    "emptySlot": "Paikka {{n}}: tyhjä",
+    "emptyPeg": "Tyhjä",
+    "feedback": "{{exact}} oikealla paikalla, {{misplaced}} väärällä paikalla",
+    "palette": "Värit"
+  },
+  "colors": {
+    "red": "Punainen",
+    "green": "Vihreä",
+    "blue": "Sininen",
+    "yellow": "Keltainen",
+    "orange": "Oranssi",
+    "purple": "Violetti",
+    "pink": "Vaaleanpunainen",
+    "cyan": "Turkoosi",
+    "white": "Valkoinen",
+    "black": "Musta"
+  }
+}

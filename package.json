@@ -8,6 +8,7 @@
   },
   "license": "UNLICENSED",
   "dependencies": {
+    "@aurelia/i18n": "2.0.0-rc.2",
     "@aurelia/router": "2.0.0-rc.2",
     "aurelia": "2.0.0-rc.2"
   },

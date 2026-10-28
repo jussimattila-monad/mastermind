@@ -1,0 +1,56 @@
+{
+  "app": {
+    "title": "Mastermind"
+  },
+  "language": {
+    "label": "Språk"
+  },
+  "welcome": {
+    "title": "Välkommen till Mastermind",
+    "intro": "Knäck den hemliga koden innan gissningarna tar slut.",
+    "rules": {
+      "code": "Koden har {{pegs}} pinnar, var och en i en av {{colors}} färger.",
+      "duplicates": "Samma färg kan förekomma flera gånger.",
+      "guesses_one": "Du har {{count}} gissning.",
+      "guesses_other": "Du har {{count}} gissningar.",
+      "exact": "En fylld prick: en pinne har rätt färg på rätt plats.",
+      "misplaced": "En ring: en pinne har rätt färg på fel plats.",
+      "order": "Prickarna avslöjar inte vilka pinnar de gäller."
+    },
+    "playClassic": "Spela klassisk Mastermind"
+  },
+  "game": {
+    "guessesLeft_one": "{{count}} gissning kvar",
+    "guessesLeft_other": "{{count}} gissningar kvar",
+    "submit": "Gissa",
+    "clear": "Rensa",
+    "quit": "Avsluta",
+    "confirmQuit": "Avsluta spelet? Det går inte att fortsätta senare.",
+    "won_one": "Löst på {{count}} gissning!",
+    "won_other": "Löst på {{count}} gissningar!",
+    "lost": "Gissningarna tog slut.",
+    "secret": "Den hemliga koden",
+    "playAgain": "Spela igen",
+    "mainMenu": "Huvudmeny"
+  },
+  "board": {
+    "row": "Gissning {{n}}",
+    "slot": "Position {{n}}: $t(colors.{{color}})",
+    "emptySlot": "Position {{n}}: tom",
+    "emptyPeg": "Tom",
+    "feedback": "{{exact}} på rätt plats, {{misplaced}} på fel plats",
+    "palette": "Färger"
+  },
+  "colors": {
+    "red": "Röd",
+    "green": "Grön",
+    "blue": "Blå",
+    "yellow": "Gul",
+    "orange": "Orange",
+    "purple": "Lila",
+    "pink": "Rosa",
+    "cyan": "Turkos",
+    "white": "Vit",
+    "black": "Svart"
+  }
+}

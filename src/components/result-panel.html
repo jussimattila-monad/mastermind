@@ -1,0 +1,19 @@
+<import from="./code-peg"></import>
+
+<section class="result result-${result.outcome}">
+  <!-- Focused when shown, so the outcome is read out and keyboard focus isn't lost. -->
+  <h2
+    ref="heading"
+    tabindex="-1"
+    t.bind="result.outcome === 'won' ? 'game.won' : 'game.lost'"
+    t-params.bind="{ count: result.guessCount }"
+  ></h2>
+  <p class="result-label" t="game.secret"></p>
+  <div class="result-secret">
+    <code-peg repeat.for="color of result.secret" color.bind="color"></code-peg>
+  </div>
+  <div class="result-actions">
+    <button type="button" class="primary" click.trigger="playAgain?.()" t="game.playAgain"></button>
+    <button type="button" click.trigger="mainMenu?.()" t="game.mainMenu"></button>
+  </div>
+</section>

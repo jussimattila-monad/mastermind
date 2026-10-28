@@ -1,0 +1,36 @@
+<import from="./guess-row"></import>
+<import from="./color-palette"></import>
+<import from="./result-panel"></import>
+
+<section if.bind="board" class="game">
+  <!-- Repeat by index, not by row object: buildBoard returns new objects on every change, and
+       reusing the same elements keeps keyboard focus on a slot. -->
+  <ol class="game-rows" ref="rowsElement">
+    <li repeat.for="i of board.rows.length">
+      <guess-row row.bind="board.rows[i]" select.bind="index => select(index)"></guess-row>
+    </li>
+  </ol>
+
+  <template if.bind="board.playing">
+    <p class="game-left" t="game.guessesLeft" t-params.bind="{ count: board.guessesLeft }"></p>
+    <color-palette entries.bind="board.palette" pick.bind="color => pick(color)"></color-palette>
+    <div class="game-actions">
+      <button type="button" click.trigger="clear()" t="game.clear"></button>
+      <!-- aria-disabled rather than disabled, so the button keeps focus after a submit. -->
+      <button
+        type="button"
+        class="primary"
+        aria-disabled.bind="!board.canSubmit"
+        click.trigger="submit()"
+        t="game.submit"
+      ></button>
+    </div>
+    <button type="button" class="game-quit link" click.trigger="quit()" t="game.quit"></button>
+  </template>
+  <result-panel
+    else
+    result.bind="board.result"
+    play-again.bind="() => playAgain()"
+    main-menu.bind="() => mainMenu()"
+  ></result-panel>
+</section>
