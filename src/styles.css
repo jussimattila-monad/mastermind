@@ -20,11 +20,11 @@
   --peg-outline: rgb(0 0 0 / 25%);
 
   /* One per color in ALL_COLORS (src/game/types.ts). */
-  --color-red: #e5484d;
+  --color-red: #cc1f2b;
   --color-green: #30a46c;
   --color-blue: #3e63dd;
   --color-yellow: #f5d90a;
-  --color-orange: #f76b15;
+  --color-orange: #fb8212;
   --color-purple: #8e4ec6;
   --color-pink: #e93d82;
   --color-cyan: #05a2c2;
