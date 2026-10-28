@@ -1,0 +1,15 @@
+<import from="./code-peg"></import>
+
+<div class="palette" role="group" t="[aria-label]board.palette">
+  <button
+    repeat.for="color of colors"
+    type="button"
+    class="palette-color"
+    data-board-input
+    t.bind="'[aria-label,title]colors.' + color"
+    click.trigger="pick?.(color)"
+  >
+    <code-peg color.bind="color"></code-peg>
+    <span if.bind="$index < 9" class="palette-key" aria-hidden="true">${$index + 1}</span>
+  </button>
+</div>

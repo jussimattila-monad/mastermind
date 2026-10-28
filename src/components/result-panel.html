@@ -1,0 +1,14 @@
+<import from="./code-peg"></import>
+
+<section class="result result-${result.outcome}" role="status">
+  <h2 if.bind="result.outcome === 'won'" t="game.won" t-params.bind="{ count: result.guessCount }"></h2>
+  <h2 else t="game.lost"></h2>
+  <p class="result-label" t="game.secret"></p>
+  <div class="result-secret">
+    <code-peg repeat.for="color of result.secret" color.bind="color"></code-peg>
+  </div>
+  <div class="result-actions">
+    <button type="button" class="primary" click.trigger="playAgain?.()" t="game.playAgain"></button>
+    <button type="button" click.trigger="mainMenu?.()" t="game.mainMenu"></button>
+  </div>
+</section>

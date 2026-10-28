@@ -13,8 +13,8 @@
       "duplicates": "Samma färg kan förekomma flera gånger.",
       "guesses_one": "Du har {{count}} gissning.",
       "guesses_other": "Du har {{count}} gissningar.",
-      "exact": "En mörk prick: en pinne har rätt färg på rätt plats.",
-      "misplaced": "En ljus prick: en pinne har rätt färg på fel plats.",
+      "exact": "En fylld prick: en pinne har rätt färg på rätt plats.",
+      "misplaced": "En ring: en pinne har rätt färg på fel plats.",
       "order": "Prickarna avslöjar inte vilka pinnar de gäller."
     },
     "playClassic": "Spela klassisk Mastermind"
@@ -35,8 +35,9 @@
   },
   "board": {
     "row": "Gissning {{n}}",
-    "slot": "Position {{n}}: {{color}}",
+    "slot": "Position {{n}}: $t(colors.{{color}})",
     "emptySlot": "Position {{n}}: tom",
+    "emptyPeg": "Tom",
     "feedback": "{{exact}} på rätt plats, {{misplaced}} på fel plats",
     "palette": "Färger"
   },

@@ -1,0 +1,27 @@
+<import from="./guess-row"></import>
+<import from="./color-palette"></import>
+<import from="./result-panel"></import>
+
+<section if.bind="board" class="game">
+  <ol class="game-rows">
+    <li repeat.for="row of board.rows">
+      <guess-row row.bind="row" select.bind="index => select(index)"></guess-row>
+    </li>
+  </ol>
+
+  <template if.bind="board.playing">
+    <p class="game-left" t="game.guessesLeft" t-params.bind="{ count: board.guessesLeft }"></p>
+    <color-palette colors.bind="board.palette" pick.bind="color => pick(color)"></color-palette>
+    <div class="game-actions">
+      <button type="button" click.trigger="clear()" t="game.clear"></button>
+      <button type="button" class="primary" disabled.bind="!board.canSubmit" click.trigger="submit()" t="game.submit"></button>
+    </div>
+    <button type="button" class="game-quit link" click.trigger="quit()" t="game.quit"></button>
+  </template>
+  <result-panel
+    else
+    result.bind="board.result"
+    play-again.bind="() => playAgain()"
+    main-menu.bind="() => mainMenu()"
+  ></result-panel>
+</section>

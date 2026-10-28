@@ -1,0 +1,13 @@
+<span
+  if.bind="feedback"
+  class="feedback"
+  style="--columns: ${columns}"
+  role="img"
+  t="[aria-label]board.feedback"
+  t-params.bind="{ exact: feedback.correctColorAndPosition, misplaced: feedback.correctColorWrongPosition }"
+>
+  <span repeat.for="dot of dots" class="dot dot-${dot}"></span>
+</span>
+<span else class="feedback" style="--columns: ${columns}" aria-hidden="true">
+  <span repeat.for="dot of dots" class="dot dot-none"></span>
+</span>

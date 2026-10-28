@@ -13,8 +13,8 @@
       "duplicates": "Sama väri voi esiintyä useammin kuin kerran.",
       "guesses_one": "Sinulla on {{count}} arvaus.",
       "guesses_other": "Sinulla on {{count}} arvausta.",
-      "exact": "Tumma piste: yksi nappula on oikean värinen ja oikealla paikalla.",
-      "misplaced": "Vaalea piste: yksi nappula on oikean värinen mutta väärällä paikalla.",
+      "exact": "Täytetty piste: yksi nappula on oikean värinen ja oikealla paikalla.",
+      "misplaced": "Rengas: yksi nappula on oikean värinen mutta väärällä paikalla.",
       "order": "Pisteet eivät kerro, mitä nappuloita ne tarkoittavat."
     },
     "playClassic": "Pelaa klassista Mastermindia"
@@ -35,8 +35,9 @@
   },
   "board": {
     "row": "Arvaus {{n}}",
-    "slot": "Paikka {{n}}: {{color}}",
+    "slot": "Paikka {{n}}: $t(colors.{{color}})",
     "emptySlot": "Paikka {{n}}: tyhjä",
+    "emptyPeg": "Tyhjä",
     "feedback": "{{exact}} oikealla paikalla, {{misplaced}} väärällä paikalla",
     "palette": "Värit"
   },

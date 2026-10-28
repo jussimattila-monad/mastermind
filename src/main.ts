@@ -3,6 +3,7 @@ import { I18nConfiguration } from '@aurelia/i18n';
 import { detectLanguage, resources } from './i18n';
 import { MyApp } from './my-app';
 import { browserStorage, STORAGE_KEYS } from './session/storage';
+import './styles.css';
 
 const language = detectLanguage(browserStorage.get(STORAGE_KEYS.language), navigator.languages);
 document.documentElement.lang = language;

@@ -13,8 +13,8 @@
       "duplicates": "A color can appear more than once.",
       "guesses_one": "You have {{count}} guess.",
       "guesses_other": "You have {{count}} guesses.",
-      "exact": "A dark dot: one peg has the right color in the right place.",
-      "misplaced": "A light dot: one peg has the right color in the wrong place.",
+      "exact": "A filled dot: one peg has the right color in the right place.",
+      "misplaced": "A ring: one peg has the right color in the wrong place.",
       "order": "The dots don't tell you which pegs they mean."
     },
     "playClassic": "Play classic Mastermind"
@@ -35,8 +35,9 @@
   },
   "board": {
     "row": "Guess {{n}}",
-    "slot": "Position {{n}}: {{color}}",
+    "slot": "Position {{n}}: $t(colors.{{color}})",
     "emptySlot": "Position {{n}}: empty",
+    "emptyPeg": "Empty",
     "feedback": "{{exact}} right place, {{misplaced}} wrong place",
     "palette": "Colors"
   },

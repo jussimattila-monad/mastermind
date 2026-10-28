@@ -1,0 +1,35 @@
+.result {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  align-items: center;
+  padding: 1rem;
+  border-radius: var(--radius);
+  background: var(--surface);
+  text-align: center;
+}
+
+.result-won {
+  box-shadow: 0 0 0 2px var(--success);
+}
+
+.result h2,
+.result-label {
+  margin: 0;
+}
+
+.result-label {
+  color: var(--text-muted);
+}
+
+.result-secret {
+  display: flex;
+  gap: var(--gap);
+}
+
+.result-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap);
+  justify-content: center;
+}

@@ -1,0 +1,30 @@
+<import from="./code-peg"></import>
+<import from="./feedback-pegs"></import>
+
+<div
+  class="row row-${row.kind}"
+  role="group"
+  t="[aria-label]board.row"
+  t-params.bind="{ n: row.number }"
+  aria-current.bind="row.kind === 'current' ? 'step' : null"
+>
+  <span class="row-number" aria-hidden="true">${row.number}</span>
+  <span class="row-pegs">
+    <template repeat.for="peg of row.pegs">
+      <button
+        if.bind="row.kind === 'current'"
+        type="button"
+        class="slot ${$index === row.activeSlot ? 'slot-active' : ''}"
+        data-board-input
+        aria-pressed.bind="$index === row.activeSlot"
+        t.bind="peg ? '[aria-label]board.slot' : '[aria-label]board.emptySlot'"
+        t-params.bind="{ n: $index + 1, color: peg }"
+        click.trigger="select?.($index)"
+      >
+        <code-peg color.bind="peg"></code-peg>
+      </button>
+      <code-peg else color.bind="peg"></code-peg>
+    </template>
+  </span>
+  <feedback-pegs feedback.bind="row.feedback" pegs.bind="row.pegs.length"></feedback-pegs>
+</div>
