@@ -37,22 +37,28 @@ export interface DraftView {
   readonly active: number;
 }
 
+// Builds new arrays without mutating any (no push or fill): Aurelia evaluates this inside an
+// observed getter, where mutating even a freshly mapped array counts as a side effect.
 export function buildBoard(state: StartedState, draft: DraftView): BoardView {
   const { config } = state;
   const playing = state.status === 'playing';
 
-  const rows: RowView[] = state.guesses.map((result, i) => ({
+  const past: RowView[] = state.guesses.map((result, i) => ({
     kind: 'past',
     number: i + 1,
     pegs: result.guess,
     feedback: result.feedback,
   }));
-  if (playing) {
-    rows.push({ kind: 'current', number: rows.length + 1, pegs: draft.slots, activeSlot: draft.active });
-  }
-  while (rows.length < config.maxGuesses) {
-    rows.push({ kind: 'empty', number: rows.length + 1, pegs: Array<Slot>(config.pegs).fill(null) });
-  }
+  const current: RowView[] = playing
+    ? [{ kind: 'current', number: past.length + 1, pegs: draft.slots, activeSlot: draft.active }]
+    : [];
+  const used = past.length + current.length;
+  const empty: RowView[] = Array.from({ length: config.maxGuesses - used }, (_, i) => ({
+    kind: 'empty',
+    number: used + i + 1,
+    pegs: Array.from({ length: config.pegs }, (): Slot => null),
+  }));
+  const rows = [...past, ...current, ...empty];
 
   const code = draft.slots.filter((slot): slot is Color => slot !== null);
   const canSubmit = playing && code.length === draft.slots.length && isValidGuess(code, config);
