@@ -32,6 +32,9 @@ Keep scripts free of hooks that repeat these steps (e.g. a `pretest` that lints)
 - `src/resource.d.ts`: module declarations for `.html` and `.css` imports.
 - `vite.config.ts`: `base` is `/mastermind/` for builds and `vite preview` (GitHub Pages),
   `BASE_PATH` if set (PR previews), and `/` in dev.
+- `docs/plans/`: approved plans of past work with their outcomes. They're historical records, not
+  instructions; where they differ from this file or the code, this file and the code win. When a
+  plan has been carried out, add it there (see `docs/plans/README.md`).
 - `e2e/`: Playwright tests; `helpers.ts` seeds a saved game with a known secret.
   `playwright.config.ts` starts the dev server unless `E2E_BASE_URL` is set.
 
