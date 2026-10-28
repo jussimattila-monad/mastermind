@@ -52,8 +52,8 @@ The site is served by GitHub Pages from the `gh-pages` branch.
 
 - **Deploy production** checks and builds every push to `main` and publishes it.
 - **Deploy PR preview** does the same for each pull request under
-  `/mastermind/pr-preview/pr-<number>/`, comments the link, runs the browser tests against it,
-  and removes it when the PR closes.
+  `/mastermind/pr-preview/pr-<number>/`, comments the link and runs the browser tests against it.
+- **Remove PR preview** removes the preview when the PR closes.
 - **Respond to @claude** runs Claude Code when an issue or PR mentions `@claude`.
 - **pages-build-deployment** is GitHub's own workflow that publishes `gh-pages` after each push.
 
