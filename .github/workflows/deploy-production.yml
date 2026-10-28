@@ -1,11 +1,14 @@
-name: Deploy to GitHub Pages
+# Checks and builds main, then pushes dist/ to the gh-pages branch. GitHub's built-in
+# pages-build-deployment workflow then publishes that branch to
+# https://jussimattila-monad.github.io/mastermind/. PR previews share the branch (see
+# deploy-pr-preview.yml).
+name: Deploy production
 
 on:
   push:
     branches: [main]
   workflow_dispatch:
 
-# Pages serves the gh-pages branch, which also holds PR previews (see pr-preview.yml)
 permissions:
   contents: write
 
@@ -17,16 +20,13 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - uses: actions/setup-node@v5
         with:
           node-version: lts/*
           cache: npm
       - run: npm ci
-      - run: npm run lint
-      - run: npm run typecheck
-      - run: npm test
-      - run: npm run build
+      - run: npm run check
       - uses: JamesIves/github-pages-deploy-action@v4
         with:
           folder: dist

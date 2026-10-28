@@ -7,14 +7,19 @@ Deployed to GitHub Pages at https://jussimattila-monad.github.io/mastermind/.
 
 ```bash
 npm start           # dev server on http://localhost:9000
-npm run lint        # ESLint (src/**/*.ts) + Stylelint (src/**/*.css)
+npm run lint        # ESLint (src/, e2e/, playwright.config.ts) + Stylelint (src/**/*.css)
 npm run typecheck   # tsc, strict, no emit
 npm test            # Vitest unit tests (src/**/*.test.ts)
 npm run build       # production build into dist/
-npm run check       # all of the above except start: lint, typecheck, test, build
+npm run preview     # serve dist/ under its base path on http://localhost:9001/mastermind/
+npm run check       # lint, typecheck, test, build
+npm run e2e         # Playwright browser tests (e2e/*.e2e.ts) against the dev server
+E2E_BASE_URL=https://jussimattila-monad.github.io/mastermind/ npm run e2e  # or any deployed URL
 ```
 
-A change is done only when `npm run check` passes.
+A change is done only when `npm run check` passes; run `npm run e2e` too when it changes what
+the browser shows. `e2e` stays out of `check` because it needs a browser. Locally, Playwright
+uses the Chromium in `~/.cache/ms-playwright`; `@playwright/test` is pinned to match it.
 Commit with `/commit`; the message format is defined in `.claude/commands/commit.md`.
 CI runs the same steps before deploying, so a failure blocks the deploy.
 Keep scripts free of hooks that repeat these steps (e.g. a `pretest` that lints).
@@ -25,13 +30,23 @@ Keep scripts free of hooks that repeat these steps (e.g. a `pretest` that lints)
 - `src/my-app.*`: root component; header with the language picker, then `welcome-screen` in
   setup and `game-board` otherwise. Views follow the game state; there is no router.
 - `src/resource.d.ts`: module declarations for `.html` and `.css` imports.
-- `vite.config.ts`: `base` is `/mastermind/` for builds (GitHub Pages), `BASE_PATH` if set
-  (PR previews), and `/` in dev.
-- `.github/workflows/deploy.yml`: lint, typecheck, test, build, then push `dist/` to the
-  `gh-pages` branch (which Pages serves) on push to `main`. Leaves `pr-preview/` untouched.
-- `.github/workflows/pr-preview.yml`: same checks on each PR, then deploys a preview to
-  `/mastermind/pr-preview/pr-<number>/` and comments the link; removes it when the PR closes.
-  Previews don't work for PRs from forks.
+- `vite.config.ts`: `base` is `/mastermind/` for builds and `vite preview` (GitHub Pages),
+  `BASE_PATH` if set (PR previews), and `/` in dev.
+- `e2e/`: Playwright tests; `helpers.ts` seeds a saved game with a known secret.
+  `playwright.config.ts` starts the dev server unless `E2E_BASE_URL` is set.
+
+## GitHub Actions
+
+Pages serves the `gh-pages` branch: production at its root, PR previews under `pr-preview/`.
+
+| Workflow | File | Runs on | Does |
+|---|---|---|---|
+| Deploy production | `deploy-production.yml` | push to `main`, manual | `npm run check`, push `dist/` to `gh-pages` (keeps `pr-preview/`) |
+| Deploy PR preview | `deploy-pr-preview.yml` | PR opened/updated/closed | `npm run check`, deploy to `/mastermind/pr-preview/pr-<number>/`, comment the link, `npm run e2e` against it; removes it on close |
+| Respond to @claude | `claude.yml` | `@claude` in issues, PRs, reviews | Runs Claude Code on the request |
+| pages-build-deployment | GitHub built-in | push to `gh-pages` | Publishes the branch; it can't be renamed and goes away only if Pages stops serving a branch, which would end PR previews |
+
+PRs from forks (and Dependabot) get no preview: their read-only token can't push to `gh-pages`, so both preview jobs are skipped.
 
 ## Layers
 
@@ -103,5 +118,7 @@ layers listed before it. `main.ts` wires everything up and sits outside the laye
   Components handle presentation and user input only (see Layers).
 - TypeScript is `strict`; don't weaken it with `any` or non-null assertions to silence errors.
 - Asset and link URLs must work under the `/mastermind/` base path; don't hard-code `/`.
+- Behavior that only the browser shows (rendering, focus, keyboard, storage, translations) gets an
+  e2e test. Use role and label locators, and navigate with `page.goto('./')` so the base path holds.
 - Dependency versions are pinned on purpose: Aurelia packages exactly, `typescript` to `~6.0`
   (typescript-eslint supports `<6.1`). Don't bump them as a side effect of other work.

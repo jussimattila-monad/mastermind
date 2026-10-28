@@ -1,0 +1,73 @@
+# Checks and builds each PR, deploys it to gh-pages under pr-preview/pr-<number>/, comments
+# the link, and runs the browser tests against it. Closing the PR removes the preview.
+# Skipped for PRs from forks (and Dependabot), whose read-only token can't push to gh-pages.
+name: Deploy PR preview
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize, closed]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: preview-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    if: github.event.action != 'closed' && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v5
+        with:
+          node-version: lts/*
+          cache: npm
+      - run: npm ci
+      - run: npm run check
+        env:
+          # The preview is served from https://<user>.github.io/mastermind/pr-preview/pr-<number>/
+          BASE_PATH: /${{ github.event.repository.name }}/pr-preview/pr-${{ github.event.number }}/
+      - id: preview
+        uses: rossjrw/pr-preview-action@v1
+        with:
+          source-dir: dist
+          preview-branch: gh-pages
+          umbrella-dir: pr-preview
+      - run: npx playwright install --with-deps chromium
+      # The preview is live once pages-build-deployment has published it, usually about a minute
+      # later, but Pages builds queue behind each other
+      - name: Wait for the preview
+        env:
+          URL: ${{ steps.preview.outputs.preview-url }}
+        run: |
+          script=$(grep -o 'assets/index-[^"]*\.js' dist/index.html)
+          for _ in $(seq 60); do
+            if curl -fsSL "$URL" | grep -q "$script"; then
+              exit 0
+            fi
+            sleep 10
+          done
+          echo "$URL didn't serve $script within 10 minutes" >&2
+          exit 1
+      - run: npm run e2e
+        env:
+          E2E_BASE_URL: ${{ steps.preview.outputs.preview-url }}
+      - if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 7
+
+  remove:
+    if: github.event.action == 'closed' && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: rossjrw/pr-preview-action@v1
+        with:
+          preview-branch: gh-pages
+          umbrella-dir: pr-preview
