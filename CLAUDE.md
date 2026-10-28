@@ -46,7 +46,7 @@ Pages serves the `gh-pages` branch: production at its root, PR previews under `p
 | Respond to @claude | `claude.yml` | `@claude` in issues, PRs, reviews | Runs Claude Code on the request |
 | pages-build-deployment | GitHub built-in | push to `gh-pages` | Publishes the branch; it can't be renamed and goes away only if Pages stops serving a branch, which would end PR previews |
 
-Previews don't work for PRs from forks.
+PRs from forks (and Dependabot) get no preview: their read-only token can't push to `gh-pages`, so both preview jobs are skipped.
 
 ## Layers
 
