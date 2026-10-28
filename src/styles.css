@@ -20,11 +20,11 @@
   --peg-outline: rgb(0 0 0 / 25%);
 
   /* One per color in ALL_COLORS (src/game/types.ts). */
-  --color-red: #e5484d;
+  --color-red: #cc1f2b;
   --color-green: #30a46c;
   --color-blue: #3e63dd;
   --color-yellow: #f5d90a;
-  --color-orange: #f76b15;
+  --color-orange: #fb8212;
   --color-purple: #8e4ec6;
   --color-pink: #e93d82;
   --color-cyan: #05a2c2;
@@ -36,6 +36,13 @@
   --dot-size: 0.65rem;
   --gap: 0.5rem;
   --radius: 0.75rem;
+}
+
+/* Smaller pegs on short screens, so the whole board fits a phone without scrolling. */
+@media (height <= 48rem) {
+  :root {
+    --peg-size: 1.8rem;
+  }
 }
 
 @media (prefers-color-scheme: dark) {

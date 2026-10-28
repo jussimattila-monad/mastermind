@@ -28,14 +28,30 @@
   opacity: 0.5;
 }
 
+/* Slots take no more space than a peg, so the current row matches the others. */
 .slot {
-  padding: 0.15rem;
-  border: 2px solid transparent;
+  padding: 0;
+  border: none;
   border-radius: 50%;
   background: none;
   line-height: 0;
 }
 
+/* A ring drawn outside the slot, within the row's padding. */
 .slot-active {
-  border-color: var(--accent);
+  box-shadow:
+    0 0 0 1px var(--surface),
+    0 0 0 3px var(--accent);
+}
+
+/* Focus sits just outside the active ring, so it gets another color to tell them apart. */
+.slot:focus-visible {
+  outline-color: var(--text);
+}
+
+/* Forced colors drop box shadows. */
+@media (forced-colors: active) {
+  .slot-active {
+    outline: 2px solid Highlight;
+  }
 }

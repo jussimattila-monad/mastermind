@@ -82,7 +82,8 @@ layers listed before it. `main.ts` wires everything up and sits outside the laye
   callbacks (`pick.bind="color => pick(color)"`) and never touch the session or storage.
 - Game configuration goes in the setup view: build a `GameConfig` and call `session.start(config)`.
 - Components use only the tokens in `styles.css`; each color in `ALL_COLORS` has a
-  `--color-<name>` token and a `peg-<name>` class in `code-peg.css`.
+  `--color-<name>` token and a `peg-<name>` class in `code-peg.css`. The exception is system
+  colors (`Highlight`) under `@media (forced-colors: active)`, where box shadows aren't drawn.
 
 ## Translations
 

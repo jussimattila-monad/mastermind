@@ -9,6 +9,7 @@ at the time; [CLAUDE.md](../../CLAUDE.md) and the code are the current reference
 | [Game logic](2026-10-27-game-logic.md): rules, scoring, Vitest | 2026-10-27 | 2026-10-27 | [#3](https://github.com/jussimattila-monad/mastermind/pull/3) |
 | [Game UI](2026-10-28-game-ui.md): welcome screen, board, translations, saved games | 2026-10-28 | 2026-10-28 | [#4](https://github.com/jussimattila-monad/mastermind/pull/4) |
 | [Housekeeping](2026-10-28-housekeeping.md): workflows, browser tests, README, upgrades | 2026-10-28 | 2026-10-28 | [#5](https://github.com/jussimattila-monad/mastermind/pull/5), [#6](https://github.com/jussimattila-monad/mastermind/pull/6), [#7](https://github.com/jussimattila-monad/mastermind/pull/7) |
+| [Phone layout](2026-10-28-phone-layout.md): fit the game on a phone screen | 2026-10-28 | 2026-10-28 | [#11](https://github.com/jussimattila-monad/mastermind/pull/11) |
 
 ## Adding a plan
 
