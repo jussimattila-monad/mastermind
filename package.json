@@ -1,6 +1,6 @@
 {
   "name": "mastermind",
-  "description": "Mastermind game built with Aurelia 2.",
+  "description": "Mastermind code-breaking game in the browser, built with Aurelia 2.",
   "version": "0.1.0",
   "repository": {
     "type": "git",
