@@ -1,0 +1,53 @@
+<import from="./code-peg"></import>
+
+<form class="rules-form" submit.trigger="save?.()">
+  <label class="rules-field">
+    <span t="custom.pegs"></span>
+    <input
+      type="number"
+      inputmode="numeric"
+      min="1"
+      max.bind="maxPegs"
+      value.to-view="draft.pegs"
+      input.trigger="draft.pegs = $event.target.valueAsNumber"
+    >
+  </label>
+  <label class="rules-field">
+    <span t="custom.guesses"></span>
+    <input
+      type="number"
+      inputmode="numeric"
+      min="1"
+      max.bind="maxGuesses"
+      value.to-view="draft.maxGuesses"
+      input.trigger="draft.maxGuesses = $event.target.valueAsNumber"
+    >
+  </label>
+  <label class="rules-check">
+    <input type="checkbox" checked.bind="draft.allowDuplicates">
+    <span t="custom.duplicates"></span>
+  </label>
+  <fieldset class="rules-colors">
+    <legend t="custom.palette"></legend>
+    <label repeat.for="color of colors" class="rules-check">
+      <input
+        type="checkbox"
+        checked.to-view="draft.colors.includes(color)"
+        change.trigger="draft.toggleColor(color)"
+      >
+      <code-peg color.bind="color" aria-hidden="true"></code-peg>
+      <span t.bind="'colors.' + color"></span>
+    </label>
+  </fieldset>
+  <p
+    if.bind="draft.error"
+    class="rules-error"
+    role="alert"
+    t.bind="'custom.errors.' + draft.error.key"
+    t-params.bind="draft.error.params"
+  ></p>
+  <div class="rules-actions">
+    <button type="submit" class="primary" disabled.bind="!draft.canSave" t="custom.save"></button>
+    <button type="button" click.trigger="cancel?.()" t="custom.cancel"></button>
+  </div>
+</form>

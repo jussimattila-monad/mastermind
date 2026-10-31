@@ -3,6 +3,8 @@ import type { GameConfig } from './types';
 // Upper bounds keep a hand-edited or corrupt saved game from building a board too large to render.
 export const MAX_PEGS = 10;
 export const MAX_GUESSES = 20;
+// A palette of one color would make the secret known.
+export const MIN_COLORS = 2;
 
 export function validateConfig(config: GameConfig): void {
   if (!Number.isInteger(config.pegs) || config.pegs < 1 || config.pegs > MAX_PEGS) {
@@ -11,8 +13,8 @@ export function validateConfig(config: GameConfig): void {
   if (!Number.isInteger(config.maxGuesses) || config.maxGuesses < 1 || config.maxGuesses > MAX_GUESSES) {
     throw new Error(`maxGuesses must be an integer from 1 to ${MAX_GUESSES}, got ${config.maxGuesses}`);
   }
-  if (config.colors.length === 0) {
-    throw new Error('colors must not be empty');
+  if (config.colors.length < MIN_COLORS) {
+    throw new Error(`colors must have at least ${MIN_COLORS} entries, got ${config.colors.length}`);
   }
   if (new Set(config.colors).size !== config.colors.length) {
     throw new Error('colors must not contain duplicates');

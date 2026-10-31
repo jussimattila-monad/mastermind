@@ -17,7 +17,31 @@
       "misplaced": "Rengas: yksi nappula on oikean värinen mutta väärällä paikalla.",
       "order": "Pisteet eivät kerro, mitä nappuloita ne tarkoittavat."
     },
-    "playClassic": "Pelaa klassista Mastermindia"
+    "playClassic": "Pelaa klassista Mastermindia",
+    "playCustom": "Pelaa omilla säännöillä"
+  },
+  "custom": {
+    "title": "Omat säännöt",
+    "summary": {
+      "pegs": "Nappuloita: {{count}}",
+      "colors": "Värejä: {{count}}",
+      "guesses": "Arvauksia: {{count}}",
+      "duplicatesAllowed": "Toistot: sallittu",
+      "duplicatesNotAllowed": "Toistot: ei sallittu"
+    },
+    "edit": "Muokkaa omia sääntöjä",
+    "save": "Tallenna",
+    "cancel": "Peruuta",
+    "pegs": "Nappuloita",
+    "guesses": "Arvauksia",
+    "duplicates": "Sama väri saa esiintyä useammin kuin kerran",
+    "palette": "Värit",
+    "errors": {
+      "pegs": "Nappuloiden määrän on oltava kokonaisluku väliltä 1–{{max}}.",
+      "guesses": "Arvausten määrän on oltava kokonaisluku väliltä 1–{{max}}.",
+      "colors": "Valitse vähintään {{min}} väriä.",
+      "duplicates": "{{pegs}} nappulaa vaatii vähintään {{pegs}} väriä, kun väri ei saa toistua; sinulla on {{colors}}."
+    }
   },
   "game": {
     "guessesLeft_one": "{{count}} arvaus jäljellä",

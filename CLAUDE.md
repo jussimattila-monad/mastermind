@@ -76,11 +76,18 @@ layers listed before it. `main.ts` wires everything up and sits outside the laye
 - Saved game: localStorage key `mastermind:game`, `SavedGame` version 1 (config, secret,
   guesses only). `restoreGame` replays the guesses, so anything invalid falls back to setup.
   Change the format by bumping the version. The language is saved under `mastermind:lang`.
+- Custom rules: `CustomRules` (`src/session/`) holds the one `GameConfig` for "Play custom
+  Mastermind", saved as plain JSON under `mastermind:custom` (no version: it is validated by
+  `parseConfig` on every load, and invalid data resets to `DEFAULT_CUSTOM`). They are edited in
+  the setup view through a `ConfigDraft` and change only when the player saves. `validateConfig`
+  requires at least `MIN_COLORS` (2) colors.
 - Decisions belong in `buildBoard` (unit tested), not in templates: what can be submitted,
   guesses left, row kinds, when the secret is shown (only after the game ends).
 - Only containers use `resolve(...)`. Presentational components take `@bindable` data and
   callbacks (`pick.bind="color => pick(color)"`) and never touch the session or storage.
 - Game configuration goes in the setup view: build a `GameConfig` and call `session.start(config)`.
+  `welcome-screen` starts classic (`CLASSIC`) or the saved custom rules; `custom-rules-form`
+  edits a `ConfigDraft`, and its `error` decides whether it can be saved.
 - Components use only the tokens in `styles.css`; each color in `ALL_COLORS` has a
   `--color-<name>` token and a `peg-<name>` class in `code-peg.css`. The exception is system
   colors (`Highlight`) under `@media (forced-colors: active)`, where box shadows aren't drawn.

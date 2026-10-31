@@ -26,7 +26,7 @@ export function restoreGame(data: unknown): StartedState | undefined {
   if (!isRecord(data) || data.version !== 1 || !Array.isArray(data.guesses)) {
     return undefined;
   }
-  const config = toConfig(data.config);
+  const config = parseConfig(data.config);
   const secret = toCode(data.secret);
   if (!config || !secret) {
     return undefined;
@@ -41,7 +41,6 @@ export function restoreGame(data: unknown): StartedState | undefined {
   }
 
   try {
-    validateConfig(config);
     if (!isValidGuess(secret, config)) {
       return undefined;
     }
@@ -51,6 +50,20 @@ export function restoreGame(data: unknown): StartedState | undefined {
       state = makeGuess(state, guess);
     }
     return state;
+  } catch {
+    return undefined;
+  }
+}
+
+// A valid GameConfig from untyped data (such as storage), or undefined.
+export function parseConfig(data: unknown): GameConfig | undefined {
+  const config = toConfig(data);
+  if (!config) {
+    return undefined;
+  }
+  try {
+    validateConfig(config);
+    return config;
   } catch {
     return undefined;
   }

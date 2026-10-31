@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { makeGuess, newGame, startGame } from './game';
-import { restoreGame, serializeGame } from './save';
+import { parseConfig, restoreGame, serializeGame } from './save';
 import { CLASSIC, type Code, type GameConfig, type StartedState } from './types';
 
 // random() always 0 picks the first palette color for every peg.
@@ -80,5 +80,21 @@ describe('serializeGame / restoreGame', () => {
     expect(restoreGame({ ...valid, guesses: [SECRET, WRONG] })).toBeUndefined();
     const oneGuess = { ...CLASSIC, maxGuesses: 1 };
     expect(restoreGame({ ...valid, config: oneGuess, guesses: [WRONG, WRONG] })).toBeUndefined();
+  });
+});
+
+describe('parseConfig', () => {
+  it('returns a valid config from JSON data', () => {
+    expect(parseConfig(JSON.parse(JSON.stringify(CLASSIC)))).toEqual(CLASSIC);
+  });
+
+  it('returns undefined for anything that is not a valid config', () => {
+    expect(parseConfig(undefined)).toBeUndefined();
+    expect(parseConfig({ ...CLASSIC, pegs: '4' })).toBeUndefined();
+    expect(parseConfig({ ...CLASSIC, allowDuplicates: 1 })).toBeUndefined();
+    expect(parseConfig({ ...CLASSIC, colors: ['red', 'magenta'] })).toBeUndefined();
+    expect(parseConfig({ ...CLASSIC, colors: ['red'] })).toBeUndefined();
+    expect(parseConfig({ ...CLASSIC, pegs: 0 })).toBeUndefined();
+    expect(parseConfig({ ...CLASSIC, pegs: 7, colors: ['red', 'blue'], allowDuplicates: false })).toBeUndefined();
   });
 });
