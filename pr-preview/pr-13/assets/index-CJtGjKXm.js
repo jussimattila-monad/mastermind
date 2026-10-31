@@ -12,28 +12,30 @@ var e=Object.defineProperty,t=(t,n)=>{let r={};for(var i in t)e(r,i,{get:t[i],en
 `,qv=[],Jv={},Yv;function Xv(e){Yv||=Tm.define({name:Gv,template:Kv,dependencies:qv,bindables:Jv}),e.register(Yv)}var Zv=t({CodePeg:()=>ny}),Qv=im(Wv),$v,ey,ty,ny;(class{static{({e:[ey,ty],c:[ny,$v]}=Ov(this,[Qv],[[$l,0,`color`]]))}constructor(){ty(this)}color=ey(this,null);static{$v()}});var ry=t({bindables:()=>sy,default:()=>ay,dependencies:()=>oy,name:()=>iy,register:()=>ly,template:()=>ay}),iy=`custom-rules-form`,ay=`
 
 <form class="rules-form" submit.trigger="save?.()">
-  <label class="rules-field">
-    <span t="custom.pegs"></span>
-    <input
-      type="number"
-      inputmode="numeric"
-      min="1"
-      max.bind="maxPegs"
-      value.to-view="draft.pegs"
-      input.trigger="draft.pegs = $event.target.valueAsNumber"
-    >
-  </label>
-  <label class="rules-field">
-    <span t="custom.guesses"></span>
-    <input
-      type="number"
-      inputmode="numeric"
-      min="1"
-      max.bind="maxGuesses"
-      value.to-view="draft.maxGuesses"
-      input.trigger="draft.maxGuesses = $event.target.valueAsNumber"
-    >
-  </label>
+  <div class="rules-numbers">
+    <label class="rules-field">
+      <span t="custom.pegs"></span>
+      <input
+        type="number"
+        inputmode="numeric"
+        min="1"
+        max.bind="maxPegs"
+        value.to-view="draft.pegs"
+        input.trigger="draft.pegs = $event.target.valueAsNumber"
+      >
+    </label>
+    <label class="rules-field">
+      <span t="custom.guesses"></span>
+      <input
+        type="number"
+        inputmode="numeric"
+        min="1"
+        max.bind="maxGuesses"
+        value.to-view="draft.maxGuesses"
+        input.trigger="draft.maxGuesses = $event.target.valueAsNumber"
+      >
+    </label>
+  </div>
   <label class="rules-check">
     <input type="checkbox" checked.bind="draft.allowDuplicates">
     <span t="custom.duplicates"></span>
