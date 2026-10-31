@@ -8,6 +8,12 @@
   gap: 0.25rem;
 }
 
+.rules-numbers {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--gap);
+}
+
 .rules-field input[type="number"] {
   padding: 0.4rem 0.5rem;
   border: 1px solid var(--border);
@@ -25,10 +31,10 @@
 
 .rules-colors {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(7rem, 1fr));
-  gap: var(--gap);
+  grid-template-columns: repeat(auto-fit, minmax(6rem, 1fr));
+  gap: 0.25rem var(--gap);
   margin: 0;
-  padding: 0.5rem;
+  padding: 0.25rem 0.5rem;
   border: 1px solid var(--border);
   border-radius: var(--radius);
 }

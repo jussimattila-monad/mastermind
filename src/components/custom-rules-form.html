@@ -1,28 +1,30 @@
 <import from="./code-peg"></import>
 
 <form class="rules-form" submit.trigger="save?.()">
-  <label class="rules-field">
-    <span t="custom.pegs"></span>
-    <input
-      type="number"
-      inputmode="numeric"
-      min="1"
-      max.bind="maxPegs"
-      value.to-view="draft.pegs"
-      input.trigger="draft.pegs = $event.target.valueAsNumber"
-    >
-  </label>
-  <label class="rules-field">
-    <span t="custom.guesses"></span>
-    <input
-      type="number"
-      inputmode="numeric"
-      min="1"
-      max.bind="maxGuesses"
-      value.to-view="draft.maxGuesses"
-      input.trigger="draft.maxGuesses = $event.target.valueAsNumber"
-    >
-  </label>
+  <div class="rules-numbers">
+    <label class="rules-field">
+      <span t="custom.pegs"></span>
+      <input
+        type="number"
+        inputmode="numeric"
+        min="1"
+        max.bind="maxPegs"
+        value.to-view="draft.pegs"
+        input.trigger="draft.pegs = $event.target.valueAsNumber"
+      >
+    </label>
+    <label class="rules-field">
+      <span t="custom.guesses"></span>
+      <input
+        type="number"
+        inputmode="numeric"
+        min="1"
+        max.bind="maxGuesses"
+        value.to-view="draft.maxGuesses"
+        input.trigger="draft.maxGuesses = $event.target.valueAsNumber"
+      >
+    </label>
+  </div>
   <label class="rules-check">
     <input type="checkbox" checked.bind="draft.allowDuplicates">
     <span t="custom.duplicates"></span>

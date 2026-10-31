@@ -1,18 +1,23 @@
 .welcome {
-  padding: 1.25rem;
+  padding: 1rem;
   border-radius: var(--radius);
   background: var(--surface);
 }
 
 .welcome + .welcome {
-  margin-block-start: 1rem;
+  margin-block-start: var(--gap);
 }
 
 .welcome h2 {
-  margin-block-start: 0;
+  margin-block: 0 var(--gap);
+}
+
+.welcome p {
+  margin-block: 0 var(--gap);
 }
 
 .welcome-rules {
+  margin-block: 0 var(--gap);
   padding-inline-start: 1.25rem;
   color: var(--text-muted);
 }
@@ -32,9 +37,20 @@
 .welcome-custom-actions {
   display: grid;
   gap: var(--gap);
-  margin-block-start: 1rem;
 }
 
 .welcome-play {
   inline-size: 100%;
+}
+
+/* On short screens both start panels must fit together, so the rules get tighter. */
+@media (height <= 48rem) {
+  .welcome {
+    padding: 0.75rem;
+  }
+
+  .welcome-rules {
+    font-size: 0.875rem;
+    line-height: 1.35;
+  }
 }
