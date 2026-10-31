@@ -17,7 +17,31 @@
       "misplaced": "A ring: one peg has the right color in the wrong place.",
       "order": "The dots don't tell you which pegs they mean."
     },
-    "playClassic": "Play classic Mastermind"
+    "playClassic": "Play classic Mastermind",
+    "playCustom": "Play custom Mastermind"
+  },
+  "custom": {
+    "title": "Custom rules",
+    "summary": {
+      "pegs": "Pegs: {{count}}",
+      "colors": "Colors: {{count}}",
+      "guesses": "Guesses: {{count}}",
+      "duplicatesAllowed": "Duplicates: allowed",
+      "duplicatesNotAllowed": "Duplicates: not allowed"
+    },
+    "edit": "Edit custom rules",
+    "save": "Save",
+    "cancel": "Cancel",
+    "pegs": "Pegs",
+    "guesses": "Guesses",
+    "duplicates": "Allow a color more than once",
+    "palette": "Colors",
+    "errors": {
+      "pegs": "Pegs must be a whole number from 1 to {{max}}.",
+      "guesses": "Guesses must be a whole number from 1 to {{max}}.",
+      "colors": "Choose at least {{min}} colors.",
+      "duplicates": "{{pegs}} pegs need at least {{pegs}} colors when a color can't repeat; you have {{colors}}."
+    }
   },
   "game": {
     "guessesLeft_one": "{{count}} guess left",

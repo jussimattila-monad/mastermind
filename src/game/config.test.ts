@@ -20,8 +20,9 @@ describe('validateConfig', () => {
     expect(() => validateConfig({ ...CLASSIC, maxGuesses: 10_000_000 })).toThrow(/maxGuesses/);
   });
 
-  it('rejects an empty palette', () => {
-    expect(() => validateConfig({ ...CLASSIC, colors: [] })).toThrow(/empty/);
+  it('rejects a palette of fewer than two colors', () => {
+    expect(() => validateConfig({ ...CLASSIC, colors: [] })).toThrow(/at least/);
+    expect(() => validateConfig({ ...CLASSIC, colors: ['red'] })).toThrow(/at least/);
   });
 
   it('rejects a palette with duplicate colors', () => {

@@ -17,7 +17,31 @@
       "misplaced": "En ring: en pinne har rätt färg på fel plats.",
       "order": "Prickarna avslöjar inte vilka pinnar de gäller."
     },
-    "playClassic": "Spela klassisk Mastermind"
+    "playClassic": "Spela klassisk Mastermind",
+    "playCustom": "Spela med egna regler"
+  },
+  "custom": {
+    "title": "Egna regler",
+    "summary": {
+      "pegs": "Pinnar: {{count}}",
+      "colors": "Färger: {{count}}",
+      "guesses": "Gissningar: {{count}}",
+      "duplicatesAllowed": "Upprepningar: tillåtna",
+      "duplicatesNotAllowed": "Upprepningar: inte tillåtna"
+    },
+    "edit": "Ändra egna regler",
+    "save": "Spara",
+    "cancel": "Avbryt",
+    "pegs": "Pinnar",
+    "guesses": "Gissningar",
+    "duplicates": "Tillåt samma färg flera gånger",
+    "palette": "Färger",
+    "errors": {
+      "pegs": "Antalet pinnar måste vara ett heltal från 1 till {{max}}.",
+      "guesses": "Antalet gissningar måste vara ett heltal från 1 till {{max}}.",
+      "colors": "Välj minst {{min}} färger.",
+      "duplicates": "{{pegs}} pinnar kräver minst {{pegs}} färger när en färg inte får upprepas; du har {{colors}}."
+    }
   },
   "game": {
     "guessesLeft_one": "{{count}} gissning kvar",

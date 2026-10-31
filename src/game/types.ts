@@ -22,6 +22,14 @@ export const CLASSIC: GameConfig = Object.freeze({
   allowDuplicates: true,
 });
 
+// The rules a player's custom game starts from, until they change them.
+export const DEFAULT_CUSTOM: GameConfig = Object.freeze({
+  pegs: 6,
+  colors: CLASSIC.colors,
+  maxGuesses: 10,
+  allowDuplicates: true,
+});
+
 // The classic black (correctColorAndPosition) and white (correctColorWrongPosition) pegs.
 export interface Feedback {
   readonly correctColorAndPosition: number;

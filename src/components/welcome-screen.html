@@ -1,3 +1,6 @@
+<import from="./code-peg"></import>
+<import from="./custom-rules-form"></import>
+
 <section class="welcome">
   <h2 t="welcome.title"></h2>
   <p t="welcome.intro"></p>
@@ -10,4 +13,35 @@
     <li t="welcome.rules.order"></li>
   </ul>
   <button type="button" class="welcome-play primary" click.trigger="play()" t="welcome.playClassic"></button>
+</section>
+
+<section class="welcome welcome-custom" aria-labelledby="custom-title">
+  <h2 id="custom-title" t="custom.title"></h2>
+  <ul class="welcome-rules">
+    <li t="custom.summary.pegs" t-params.bind="{ count: rules.config.pegs }"></li>
+    <li>
+      <span t="custom.summary.colors" t-params.bind="{ count: rules.config.colors.length }"></span>
+      <span class="welcome-colors">
+        <code-peg repeat.for="color of rules.config.colors" color.bind="color"></code-peg>
+      </span>
+    </li>
+    <li t="custom.summary.guesses" t-params.bind="{ count: rules.config.maxGuesses }"></li>
+    <li t.bind="rules.config.allowDuplicates ? 'custom.summary.duplicatesAllowed' : 'custom.summary.duplicatesNotAllowed'"></li>
+  </ul>
+  <custom-rules-form
+    if.bind="draft"
+    draft.bind="draft"
+    save.bind="() => save()"
+    cancel.bind="() => cancel()"
+  ></custom-rules-form>
+  <div class="welcome-custom-actions">
+    <button type="button" if.bind="!draft" click.trigger="edit()" t="custom.edit"></button>
+    <button
+      type="button"
+      class="welcome-play primary"
+      disabled.bind="!!draft"
+      click.trigger="playCustom()"
+      t="welcome.playCustom"
+    ></button>
+  </div>
 </section>

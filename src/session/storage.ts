@@ -6,6 +6,7 @@ export interface KeyValueStore {
 
 export const STORAGE_KEYS = {
   game: 'mastermind:game',
+  customRules: 'mastermind:custom',
   language: 'mastermind:lang',
 } as const;
 
