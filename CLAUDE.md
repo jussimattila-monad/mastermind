@@ -88,6 +88,9 @@ layers listed before it. `main.ts` wires everything up and sits outside the laye
 - Game configuration goes in the setup view: build a `GameConfig` and call `session.start(config)`.
   `welcome-screen` starts classic (`CLASSIC`) or the saved custom rules; `custom-rules-form`
   edits a `ConfigDraft`, and its `error` decides whether it can be saved.
+- A container's methods can be unit tested without a browser: resolve it from
+  `DI.createContainer()` with the services registered as instances over an in-memory store
+  (see `welcome-screen.test.ts`). Rendering, focus and translations still need e2e.
 - Components use only the tokens in `styles.css`; each color in `ALL_COLORS` has a
   `--color-<name>` token and a `peg-<name>` class in `code-peg.css`. The exception is system
   colors (`Highlight`) under `@media (forced-colors: active)`, where box shadows aren't drawn.
