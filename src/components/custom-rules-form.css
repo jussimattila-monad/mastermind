@@ -27,14 +27,17 @@
   display: flex;
   align-items: center;
   gap: var(--gap);
+  min-inline-size: 0;
+  overflow-wrap: anywhere;
 }
 
 .rules-colors {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(6rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
   gap: 0.25rem var(--gap);
+  min-inline-size: 0;
   margin: 0;
-  padding: 0.25rem 0.5rem;
+  padding: 0.5rem 0.75rem;
   border: 1px solid var(--border);
   border-radius: var(--radius);
 }
@@ -47,5 +50,7 @@
 
 .rules-actions {
   display: flex;
+  flex-wrap: wrap;
   gap: var(--gap);
+  margin-block-end: 0.25rem;
 }

@@ -1,23 +1,23 @@
 .welcome {
-  padding: 1rem;
+  padding: 1.25rem;
   border-radius: var(--radius);
   background: var(--surface);
 }
 
 .welcome + .welcome {
-  margin-block-start: var(--gap);
+  margin-block-start: 1rem;
 }
 
 .welcome h2 {
-  margin-block: 0 var(--gap);
+  margin-block: 0 0.75rem;
 }
 
 .welcome p {
-  margin-block: 0 var(--gap);
+  margin-block: 0 0.75rem;
 }
 
 .welcome-rules {
-  margin-block: 0 var(--gap);
+  margin-block: 0 0.75rem;
   padding-inline-start: 1.25rem;
   color: var(--text-muted);
 }
@@ -37,6 +37,7 @@
 .welcome-custom-actions {
   display: grid;
   gap: var(--gap);
+  margin-block-start: 0.75rem;
 }
 
 .welcome-play {
